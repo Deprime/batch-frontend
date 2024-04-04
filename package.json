@@ -46,6 +46,7 @@
 		"@types/telegram-web-app": "^7.1.0",
 		"dayjs": "^1.11.10",
 		"ky": "^1.2.2",
+		"lucide-svelte": "^0.364.0",
 		"svelte-local-storage-store": "^0.6.4",
 		"tonweb": "^0.0.64"
 	}

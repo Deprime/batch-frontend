@@ -2,7 +2,7 @@ import ky from 'ky';
 import { get } from 'svelte/store';
 // import userStore from '$lib/stores/user';
 import { settingsStore, userStore } from '$lib/stores';
-import { API_HOST, IS_DEV_MODE, IS_PROD_DOMAIN } from './app';
+import { API_HOST, IS_DEV_MODE } from './app';
 
 const httpHelper = {
   noTokenUrls: [

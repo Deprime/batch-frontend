@@ -90,16 +90,19 @@
     </div>
 
     {#if activeCard}
-      <div class="absolute bottom-5">
+      <div class="absolute -bottom-10 z-20">
         <Card card={activeCard} />
       </div>
     {/if}
   </div>
 
-  <div class="grid grid-cols-3 gap-4 p-5">
+  <div class="flex justify-between gap-4 p-5">
     {#each cards as card}
-      <div class="transition-all duration-500 w-full bg-slate-700 rounded-md">
-        <Card {card} on:click={() => { onActivate(card) }} visible={!card.active} />
+      <div
+        class="transition-all duration-500 w-full max-w-[106px] bg-slate-800 rounded-md"
+        class:opacity-20={activeCard}
+      >
+        <Card {card} on:click={() => { onActivate(card) }} visible={!activeCard} />
       </div>
     {/each}
   </div>

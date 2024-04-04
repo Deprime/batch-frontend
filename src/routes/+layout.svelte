@@ -16,11 +16,11 @@
 
     setTimeout(() => {
       loading = false;
-    }, 6000)
+    }, 3000)
   });
 </script>
 
-<main class="main-container bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950">
+<main class="main-container h-full-dynamic bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950">
   {#if loading}
     <div class="w-full h-full flex justify-center items-center">
       <div class="transition-all duration-1000 {!show ? 'scale-0 opacity-20' : 'scale-100 opacity-100'}">

@@ -8,20 +8,39 @@
     id: number,
     title: string,
     src: string,
+    selected: boolean,
     active: boolean,
   }
 
   const cards: ICard[] = [
-    {id: 1, title: "Камень", src: stone, active: false,},
-    {id: 2, title: "Ножницы", src: sword, active: false,},
-    {id: 3, title: "Бумага", src: paper, active: false,},
+    {id: 1, title: "Камень", src: stone, selected: false, active: false,},
+    {id: 2, title: "Ножницы", src: sword, selected: false, active: false,},
+    {id: 3, title: "Бумага", src: paper,  selected: false, active: false,},
   ];
 
+  let activeCard: ICard|null = null;
+
   // Methods
-  const onActivate = (card: ICard) => {
+  const resetDeckState = () => {
     cards.forEach((el, index) => {
-      cards[index].active = el.id === card.id ? !cards[index].active : false;
+      if (cards[index].selected) {
+        cards[index].selected = false;
+      }
     });
+  }
+
+  const onActivate = (card: ICard) => {
+    if (card.selected) {
+      console.log('selected')
+      card.selected = false;
+      card.active = true;
+      activeCard = {...card};
+    }
+    else {
+      cards.forEach((el, index) => {
+        cards[index].selected = el.id === card.id;
+      });
+    }
   }
 </script>
 
@@ -30,7 +49,7 @@
 	<!-- <meta name="description" content="Svelte demo app" /> -->
 </svelte:head>
 
-<section class="h-screen py-5 flex flex-col justify-between relative">
+<section class="h-full-dynamic py-5 flex flex-col justify-between relative">
   <div  class="grid grid-cols-3 gap-4 p-5">
     {#each cards as card}
       <div
@@ -56,7 +75,7 @@
     {#each cards as card}
       <button
         class="card"
-        class:card--active={card.active}
+        class:card--selected={card.selected}
         on:click={() => { onActivate(card) }}
       >
         <img
@@ -92,7 +111,7 @@
       @apply rounded-md w-full;
     }
 
-    &--active {
+    &--selected {
       @apply -translate-y-6;
       box-shadow: 0 24px 0  rgba(255, 255, 255, 0.3);
     }

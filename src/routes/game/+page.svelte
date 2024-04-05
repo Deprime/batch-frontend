@@ -199,7 +199,6 @@
   const setPlayerActiveCard = (card: ICard) => {
     player.activeCard = {...card};
 
-
     const randomIndex = (getRandomInt(1, 3)) - 1;
     setTimeout(() => {
       setEnemyActiveCard(DEFAULT_CARDS[randomIndex]);

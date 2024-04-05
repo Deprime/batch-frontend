@@ -241,7 +241,7 @@
     <HpIndicator hp={enemy.hp} />
   </header>
 
-  <div  class="grid grid-cols-3 gap-4 p-5">
+  <div  class="flex justify-between gap-4 p-5">
     {#each DEFAULT_CARDS as card}
       <div
         class="transition-all duration-500 w-full max-w-[106px] bg-slate-600 rounded-md"

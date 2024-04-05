@@ -10,10 +10,25 @@
 	color: var(--color-text);
 }
 
-.main-container {
+body {
+  @apply bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+.h-full-dynamic {
   height: 100dvh;
 }
 
-.h-full-dynamic {
-  height: 100dvh;
+.h1 {
+  @apply font-bold text-2xl;
+}
+.h2 {
+  @apply font-bold text-xl;
+}
+.h3 {
+  @apply font-bold text-lg;
+}
+.h4 {
+  @apply font-semibold text-base;
 }

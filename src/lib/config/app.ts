@@ -1,3 +1,5 @@
+import type { IUser } from "$lib/types/user";
+
 const ENV = import.meta.env;
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -14,10 +16,9 @@ export const CENTRIFUGO_API_URL = VITE_CENTRIFUGO_API_URL ?? `wss://c.${domain}/
 
 export const IS_DEV_MODE = ENV.MODE === 'development';
 
-export const DEV_MODE_USER = {
-  id: 5, // fake telegram id
-  username: 'Deprime',
-  first_name: 'Firstname',
-  last_name: 'Lastname',
+export const DEV_MODE_USER: IUser = {
+  id: 1,
+  username: 'HypePlayer',
   language_code: 'ru',
-};
+  state: 'none',
+}

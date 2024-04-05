@@ -1,18 +1,11 @@
 import { persisted } from 'svelte-local-storage-store';
 
 // Types
-// import type { IUser } from '$lib/types/user';
-
-interface IUser {
-  id: number,
-  username: string,
-  language_code: string,
-}
+import type { IUser, UUserState } from '$lib/types/user';
 
 const $$user = {
   data: <IUser|null> null,
   token: <string|null> null,
-  cookie: <string|null> null,
   loading: false,
 }
 
@@ -34,10 +27,10 @@ const setToken = (token: string|null): void => {
   }))
 };
 
-const setCookei = (cookie: string|null): void => {
+const setState = (state: UUserState): void => {
   update(value => ({
     ...value,
-    cookie
+    state
   }))
 };
 
@@ -55,8 +48,8 @@ const userStore = {
   update,
   clear,
   setData,
+  setState,
   setToken,
-  setCookei,
   setLoading,
   isLoggedIn,
 };

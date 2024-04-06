@@ -4,23 +4,23 @@
 	import { quintOut } from 'svelte/easing';
 
   // Components
-  import { Button } from '$lib/components/ui';
-  import { Card, HpIndicator } from '$lib/components/game';
   import { RefreshCcw } from 'lucide-svelte';
+  import { Button, Modal } from '$lib/components/ui';
+  import { Card, HpIndicator, WinScreen, FailScreen } from '$lib/components/game';
 
   // Types
   import type { ICard } from '$lib/components/game/card/type';
 	import type { IBasePlayer } from '$lib/types/game';
 
+  // Helpers
   import { getRandomInt } from '$lib/helpers/math';
-	import { goto } from '$app/navigation';
 
   // Data
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
   const DEFAULT_CARDS: ICard[] = [
-    {id: 1, title: "Камень", src: "stone-default", selected: false, active: false,},
-    {id: 2, title: "Ножницы", src: "sword-default", selected: false, active: false,},
-    {id: 3, title: "Бумага", src: "paper-default",  selected: false, active: false,},
+    {id: 1, title: "Камень", src: "stone", selected: false, active: false,},
+    {id: 2, title: "Ножницы", src: "sword", selected: false, active: false,},
+    {id: 3, title: "Бумага", src: "paper",  selected: false, active: false,},
   ];
   let cards: ICard[] = DEFAULT_CARDS.map(el => ({...el}));
 
@@ -41,13 +41,15 @@
     easing: quintOut
   };
   let tip = '';
+  let showModal = false;
   $: final = getFinalResults(player.hp, enemy.hp);
 
+
   // Methods
-  const leaveMatch = () => {
+  const finishMatch = () => {
     setTimeout(() => {
-      goto('/')
-    }, 3000);
+      showModal = true;
+    }, 2500);
   }
   /**
    *
@@ -56,11 +58,11 @@
    */
   const getFinalResults = (playerHp: number, enemyHp: number) => {
     if (playerHp === 0) {
-      leaveMatch();
+      finishMatch();
       return -1;
     }
     if (enemyHp === 0) {
-      leaveMatch();
+      finishMatch();
       return 1;
     }
     return 0;
@@ -259,7 +261,7 @@
 
   <div class="relative w-full flex flex-col flex-grow justify-center items-center px-5">
     {#if enemy.activeCard}
-      <div class="absolute -top-12 z-20">
+      <div class="absolute -top-14 z-20">
         <Card card={enemy.activeCard} />
       </div>
     {/if}
@@ -292,7 +294,7 @@
     </div>
 
     {#if player.activeCard}
-      <div class="absolute -bottom-12 z-20">
+      <div class="absolute -bottom-14 z-20">
         <Card card={player.activeCard} />
       </div>
     {/if}
@@ -333,3 +335,11 @@
     <HpIndicator hp={player.hp} />
   </footer>
 </section>
+
+<Modal show={showModal}>
+  {#if final === 1}
+    <WinScreen />
+  {:else}
+    <FailScreen />
+  {/if}
+</Modal>

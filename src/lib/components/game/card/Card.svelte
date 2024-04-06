@@ -27,7 +27,7 @@
   on:click={onClick}
 >
   <img
-    src="/images/cards/{card.src}.jpg"
+    src="/images/cards/{card.src}.png"
     alt={card.title}
     class="card-image"
     class:opacity-0={flipped}
@@ -44,11 +44,11 @@
 <style  scoped lang="scss">
   .card {
     @apply flex flex-col items-center justify-between;
-    @apply transition-all rounded-md bg-gray-200;
+    @apply transition-all rounded-md bg-gradient-to-br from-gray-200 to-gray-400;
     @apply w-full max-w-[106px] h-[136px] p-0.5;
 
     &-title {
-      @apply text-sm font-medium text-gray-900 pb-1;
+      @apply text-sm font-semibold text-gray-800 pb-1;
     }
 
     &-image {

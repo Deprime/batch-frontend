@@ -5,8 +5,6 @@
   // Components
   import { Button, Plate } from '$lib/components/ui';
   import { Gamepad2 } from 'lucide-svelte';
-
-
   import userStore from '$lib/stores/user';
 
   /**

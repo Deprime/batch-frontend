@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
 
   // Props
-  export let variant = "primary";
+  export let variant: 'primary' | 'secondary' = "primary";
   export let disabled = false;
 
   // Data

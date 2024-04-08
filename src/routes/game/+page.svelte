@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { tick } from 'svelte';
-	import { fly } from 'svelte/transition';
+	import { tick, onMount } from 'svelte';
+	import { fly, fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
   // Components
-  import { RefreshCcw } from 'lucide-svelte';
   import { Button, Modal } from '$lib/components/ui';
-  import { Card, HpIndicator, WinScreen, FailScreen } from '$lib/components/game';
+  import { Card, UserBar, WinScreen, FailScreen } from '$lib/components/game';
+
+  import userStore from "$lib/stores/user";
 
   // Types
   import type { ICard } from '$lib/components/game/card/type';
@@ -42,7 +43,13 @@
   };
   let tip = '';
   let showModal = false;
+  let show = false;
   $: final = getFinalResults(player.hp, enemy.hp);
+
+  const fadeConfig = {
+    delay: 150,
+    duration: 1800
+  };
 
 
   // Methods
@@ -51,6 +58,7 @@
       showModal = true;
     }, 2500);
   }
+
   /**
    *
    * @param playerHp
@@ -228,6 +236,10 @@
       });
     }
   }
+
+  onMount(() => {
+    show = true;
+  })
 </script>
 
 <svelte:head>
@@ -236,14 +248,26 @@
 </svelte:head>
 
 <section class="h-full-dynamic py-5 flex flex-col justify-between relative">
-  <header class="w-full flex justify-center gap-4 px-5">
-    <div class="flex flex-grow rounded-lg bg-gray-300/20 px-4 py-2 text-white font-medium items-center">
-      Player MegaVasiliy
+  <div
+    class="size-0 absolute z-[1] top-0 left-0 glow-purple"
+    transition:fade={fadeConfig}
+  />
+  <div
+    class="size-0 absolute z-[1] bottom-0 right-0 glow-blue"
+    transition:fade={fadeConfig}
+  />
+
+  <header class="relative z-[2] w-full flex justify-center gap-4 px-5">
+    <div class="h-12 flex items-center">
+      <figure
+        class="h-10 w-12 bg-no-repeat bg-center bg-cover rounded-xl"
+        style="background-image: url('https://flagcdn.com/be.svg')"
+      />
     </div>
-    <HpIndicator hp={enemy.hp} />
+    <UserBar username={'MegaVasiliy'} hp={enemy.hp}></UserBar>
   </header>
 
-  <div  class="flex justify-between gap-4 p-5">
+  <div  class="relative z-[2] flex justify-between gap-4 p-5">
     {#each DEFAULT_CARDS as card}
       <div
         class="transition-all duration-500 w-full max-w-[106px] bg-slate-600 rounded-md"
@@ -259,7 +283,7 @@
     {/each}
   </div>
 
-  <div class="relative w-full flex flex-col flex-grow justify-center items-center px-5">
+  <div class="relative z-[2] w-full flex flex-col flex-grow justify-center items-center px-5">
     {#if enemy.activeCard}
       <div class="absolute -top-14 z-20">
         <Card card={enemy.activeCard} />
@@ -286,7 +310,7 @@
           {#if final === 1}
             <p in:fly={flyConfig} class="text-green-400">ТЫ ВЫИГРАЛ МАТЧ</p>
           {:else}
-            <p in:fly={flyConfig} class="text-red-400">ТЫ ПРОГИРАЛ МАТЧ</p>
+            <p in:fly={flyConfig} class="text-red-400">ТЫ ПРОИГРАЛ МАТЧ</p>
           {/if}
         </div>
       {/if}
@@ -300,7 +324,7 @@
     {/if}
   </div>
 
-  <div class="flex justify-between gap-4 p-5">
+  <div class="relative z-[1] flex justify-between gap-4 p-5">
     {#each cards as card}
       <div
         class="transition-all duration-500 w-full max-w-[106px] bg-slate-800 rounded-md"
@@ -316,23 +340,15 @@
     {/each}
   </div>
 
-  <footer class="w-full flex justify-center gap-4 px-5">
+  <footer class="relative z-[2] w-full flex justify-center gap-4 px-5">
     <div>
-      <Button variant="secondary" on:click={resetGame}>
-        <RefreshCcw />
-      </Button>
-    </div>
-
-    <div class="flex flex-grow">
-      <Button class="!w-full" disabled={final !== 0}>
-        <span class="absolute left-5">
+      <Button>
+        <span class="text-lg">
           🚀
         </span>
-        Boosters
       </Button>
     </div>
-
-    <HpIndicator hp={player.hp} />
+    <UserBar username={$userStore.data?.username ?? ''} hp={player.hp}></UserBar>
   </footer>
 </section>
 
@@ -343,3 +359,21 @@
     <FailScreen />
   {/if}
 </Modal>
+
+<style>
+  .glow-purple {
+    opacity: 0.6;
+    box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.2),
+    0 0 200px 60px rgba(138, 34, 202, 0.3),
+    0 0 300px 120px rgba(138, 34, 202,  0.4),
+    0 0 450px 240px rgba(138, 34, 202,  0.5);
+  }
+
+  .glow-blue {
+    opacity: 0.6;
+    box-shadow: 0 0 100px 30px rgba(24, 56, 197, 0.2),
+    0 0 200px 60px rgba(24, 56, 197, 0.3),
+    0 0 300px 120px rgba(24, 56, 197,  0.4),
+    0 0 450px 240px rgba(24, 56, 197,  0.5);
+  }
+</style>

@@ -1,6 +1,7 @@
 <script lang="ts">
   // Props
 </script>
+
 <div class="size-16 rounded-full border-4 border-purple-600 border-r-purple-300 bt-loader" />
 
 <style lang="scss">

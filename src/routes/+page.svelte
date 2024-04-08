@@ -1,17 +1,28 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	// import { goto } from '$app/navigation';
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
 
   // Components
-  import { Button, Plate } from '$lib/components/ui';
+  import { Button, Plate, Modal } from '$lib/components/ui';
+  import { MatchSearch } from '$lib/components/game';
   import { Gamepad2 } from 'lucide-svelte';
   import userStore from '$lib/stores/user';
 
+  // Data
+  const modalMatchSearch = {
+    show: false,
+  };
+
+  // Methods
   /**
    * Go to match
    */
   const onMatchClick = () => {
-    goto('/game')
+    modalMatchSearch.show = true;
+  }
+
+  const closeSearchModal = () => {
+    modalMatchSearch.show = false;
   }
 </script>
 
@@ -64,3 +75,7 @@
     </Button>
   </footer>
 </section>
+
+<Modal bind:show={modalMatchSearch.show}>
+  <MatchSearch on:cancel={closeSearchModal} />
+</Modal>

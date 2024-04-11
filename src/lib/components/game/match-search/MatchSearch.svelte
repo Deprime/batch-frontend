@@ -85,7 +85,7 @@
 
     timeoutId = setTimeout(() => {
       onMatchFound()
-    }, successTimeout)
+    }, successTimeout);
   });
 
   onDestroy(() => {
@@ -101,7 +101,7 @@
   })
 </script>
 
-<div class="relative w-full flex flex-col items-center justify-center gap-6 pt-12 pb-4 min-h-40">
+<div class="relative w-full flex flex-col items-center justify-center gap-6 pt-12 min-h-40">
   <picture class="absolute block size-32 -top-24">
     <img src="/images/dice.png" alt="dice" class=" transition-all duration-1000 size-auto"
       class:scale-50={!show}
@@ -126,18 +126,18 @@
 
   {#if !success}
     <div class="mb-4 w-full flex flex-col items-center">
-      <h4 class="h4 text-slate-100 text-center  bg-slate-800 w-20 mb-4 px-2 py-1 rounded-md">
+      <h2 class="h2 text-slate-100 text-center bg-black/40 w-32 mb-4 px-2 py-2 rounded-md">
         {timeTracker}
-      </h4>
+      </h2>
       {#key phrase}
-        <p in:fly={flyConfig} class="text-sm text-gray-300 min-h-5">
+        <p in:fly={flyConfig} class="text-sm text-gray-100 min-h-5">
           {phrase}
         </p>
       {/key}
     </div>
 
-    <footer>
-      <Button variant="secondary" on:click={onCancel}>
+    <footer class="w-full">
+      <Button variant="ghost" class="!w-full" on:click={onCancel}>
         Отмена
       </Button>
     </footer>

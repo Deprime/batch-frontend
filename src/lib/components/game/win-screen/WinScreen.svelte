@@ -75,8 +75,8 @@
   </div>
 
   <footer class="w-full flex justify-center">
-    <Button on:click={onNext} {loading} disabled={loading} class="!px-20">
-      Далее
+    <Button variant="yellow" on:click={onNext} {loading} disabled={loading} class="!px-20">
+      Забрать награду
     </Button>
   </footer>
 </div>

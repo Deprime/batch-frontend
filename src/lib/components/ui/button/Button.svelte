@@ -1,9 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
 
+  // Components
+  import Loader from "../loader/Loader.svelte";
+
   // Props
-  export let variant: 'primary' | 'secondary' = "primary";
+  export let variant: 'primary' | 'secondary' | 'yellow' | 'ghost' = "primary";
   export let disabled = false;
+  export let loading = false;
 
   // Data
   const dispatch = createEventDispatcher();
@@ -21,26 +25,49 @@
   class="bt-button bt-button--variant-{variant} {$$props.class}"
   on:click={onClick}
 >
-  <slot />
+  {#if loading}
+    <Loader size="sm"  />
+  {:else}
+    <slot />
+  {/if}
 </button>
 
 <style lang="scss">
   .bt-button {
+
     @apply relative;
-    @apply px-4 py-2.5;
+    @apply px-4 py-3;
     @apply flex items-center justify-center w-fit;
-    @apply rounded-lg transition-all active:translate-y-1;
-    @apply font-semibold;
+    @apply rounded-xl transition-all active:translate-y-1;
+    @apply font-bold subpixel-antialiased;
 
     &--variant {
       &-secondary {
-        @apply text-stone-200;
-        @apply bg-gradient-to-r from-stone-100/20 to-stone-200/20;
+        @apply text-white;
+        @apply bg-slate-500;
+        text-shadow: 0px 1px 1px rgb(67, 79, 97);
+        box-shadow: 0px 3px 0 0 rgb(67, 79, 97);
       }
+
       &-primary {
         @apply text-white;
-        @apply bg-gradient-to-br from-purple-400/80 to-purple-500/70;
-        // @apply bg-purple-600/40 active:bg-purple-600/60 text-purple-200;
+        @apply bg-blue-500;
+        text-shadow: 0px 1px 1px rgb(29, 84, 173);
+        box-shadow: 0px 3px 0 0 rgb(29, 84, 173);
+      }
+
+      &-yellow {
+        @apply font-extrabold;
+        @apply text-gray-800;
+        // @apply bg-yellow-400;
+        @apply bg-gradient-to-b from-yellow-300 to-yellow-400;
+        box-shadow: 0px 3px 0 0 rgb(194, 156, 6);
+      }
+
+      &-ghost {
+        @apply text-white;
+        @apply bg-blue-600/10;
+        @apply border-2 border-blue-600/40;
       }
     }
   }

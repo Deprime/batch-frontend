@@ -36,7 +36,7 @@
   {#if loading}
     <div class="w-full h-full flex justify-center items-center">
       <div class="transition-all duration-1000 {!show ? 'scale-0 opacity-20' : 'scale-100 opacity-100'}">
-        <Loader />
+        <Loader size="xl" />
       </div>
     </div>
   {:else}

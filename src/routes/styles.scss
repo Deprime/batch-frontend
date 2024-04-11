@@ -11,7 +11,9 @@
 }
 
 body {
-  @apply bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950;
+  // @apply bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950;
+  @apply bg-[#0B234D];
+  @apply bg-gradient-to-b from-[#0B234D] to-[#081c3f];
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
@@ -31,4 +33,20 @@ body {
 }
 .h4 {
   @apply font-semibold text-base;
+}
+
+.glow-purple {
+  opacity: 0.6;
+  box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.3),
+  0 0 200px 60px rgba(138, 34, 202, 0.4),
+  0 0 300px 120px rgba(138, 34, 202,  0.5),
+  0 0 450px 240px rgba(138, 34, 202,  0.6);
+}
+
+.glow-blue {
+  opacity: 0.6;
+  box-shadow: 0 0 100px 30px rgba(24, 56, 197, 0.2),
+  0 0 200px 60px rgba(24, 56, 197, 0.3),
+  0 0 300px 120px rgba(24, 56, 197,  0.4),
+  0 0 450px 240px rgba(24, 56, 197,  0.5);
 }

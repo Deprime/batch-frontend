@@ -39,7 +39,7 @@
   </h2>
 
   <footer class="w-full flex justify-center">
-    <Button on:click={onNext} variant="secondary" {loading} disabled={loading} class="!px-20">
+    <Button on:click={onNext} variant="ghost" {loading} disabled={loading} class="!px-20">
       Далее
     </Button>
   </footer>

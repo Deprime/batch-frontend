@@ -4,7 +4,7 @@
 	import { quintOut } from 'svelte/easing';
 
   // Components
-  import { Button, Modal } from '$lib/components/ui';
+  import { Modal } from '$lib/components/ui';
   import { Card, UserBar, WinScreen, FailScreen } from '$lib/components/game';
 
   import userStore from "$lib/stores/user";
@@ -51,7 +51,6 @@
     duration: 1800
   };
 
-
   // Methods
   const finishMatch = () => {
     setTimeout(() => {
@@ -74,13 +73,6 @@
       return 1;
     }
     return 0;
-  }
-
-  const resetGame = () => {
-    resetDeck();
-    player = { ...DEFAULT_PLAYER }
-    enemy = { ...DEFAULT_PLAYER }
-    tip = '';
   }
 
   /**
@@ -359,21 +351,3 @@
     <FailScreen />
   {/if}
 </Modal>
-
-<style>
-  .glow-purple {
-    opacity: 0.6;
-    box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.2),
-    0 0 200px 60px rgba(138, 34, 202, 0.3),
-    0 0 300px 120px rgba(138, 34, 202,  0.4),
-    0 0 450px 240px rgba(138, 34, 202,  0.5);
-  }
-
-  .glow-blue {
-    opacity: 0.6;
-    box-shadow: 0 0 100px 30px rgba(24, 56, 197, 0.2),
-    0 0 200px 60px rgba(24, 56, 197, 0.3),
-    0 0 300px 120px rgba(24, 56, 197,  0.4),
-    0 0 450px 240px rgba(24, 56, 197,  0.5);
-  }
-</style>

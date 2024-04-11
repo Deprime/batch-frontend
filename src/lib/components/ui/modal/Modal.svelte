@@ -40,11 +40,10 @@
       on:click={onFadeClick}
     />
     <div
-      class="bg-gradient-to-b from-slate-700 to-slate-800 rounded-3xl p-5 w-full max-w-xl relative z-[32] shadow-2xl shadow-purple-950/50"
+      class="bg-[#25335c] border border-white/10 rounded-2xl p-5 w-full max-w-xl relative z-[32] shadow-2xl shadow-black/60"
       transition:fly={flyConfig}
     >
       <slot />
-
     </div>
   </aside>
 {/if}

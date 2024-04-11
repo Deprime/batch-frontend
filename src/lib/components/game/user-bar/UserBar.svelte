@@ -34,17 +34,26 @@
       var rect = hpElement.getBoundingClientRect();
       const x = rect.left / document.body.clientWidth;
       const y = rect.top / document.body.clientHeight;
+      const origin = { x, y };
+
       confetti({
         ...confettiConfig,
         scalar: 0.4,
-        origin: { x, y }
+        origin
       });
       setTimeout(() => {
         confetti({
         ...confettiConfig,
-          origin: { x, y }
+          origin
         });
       }, 200)
+
+      setTimeout(() => {
+        confetti({
+        ...confettiConfig,
+          origin
+        });
+      }, 350)
     }
   }
 

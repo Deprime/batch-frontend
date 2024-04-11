@@ -247,109 +247,109 @@
 	<meta name="description" content="Game session" />
 </svelte:head>
 
-<section class="h-full-dynamic py-5 flex flex-col justify-between relative">
+
+<section class="h-full-dynamic relative">
   <div
-    class="size-0 absolute z-[1] top-0 left-0 glow-purple"
+    class="size-0 absolute z-[1] top-0 right-0 glow-purple"
     transition:fade={fadeConfig}
   />
-  <div
+  <!-- <div
     class="size-0 absolute z-[1] bottom-0 right-0 glow-blue"
     transition:fade={fadeConfig}
-  />
-
-  <header class="relative z-[2] w-full flex justify-center gap-4 px-5">
-    <div class="h-12 flex items-center">
-      <figure
-        class="h-10 w-12 bg-no-repeat bg-center bg-cover rounded-xl"
-        style="background-image: url('https://flagcdn.com/be.svg')"
-      />
-    </div>
-    <UserBar username={'MegaVasiliy'} hp={enemy.hp}></UserBar>
-  </header>
-
-  <div  class="relative z-[2] flex justify-between gap-4 p-5">
-    {#each DEFAULT_CARDS as card}
-      <div
-        class="transition-all duration-500 w-full max-w-[106px] bg-slate-600 rounded-md"
-        class:opacity-20={enemy.activeCard}
-      >
-        <Card
-          {card}
-          flipped
-          visible={!enemy.activeCard || final !== 0}
-          disabled={final !== 0}
+  /> -->
+  <div class="h-full-dynamic py-5 flex flex-col justify-between relative z-[2]">
+    <header class=" w-full flex justify-center gap-4 px-5">
+      <div class="flex flex-shrink-0 items-center justify-center rounded-full size-11 -mr-6 ring-4 ring-slate-800 relative z-[1]">
+        <figure
+          class="size-11  bg-no-repeat bg-center bg-cover rounded-full"
+          style="background-image: url('https://flagcdn.com/be.svg')"
         />
       </div>
-    {/each}
-  </div>
+      <UserBar username={'MegaVasiliy'} hp={enemy.hp}></UserBar>
+    </header>
 
-  <div class="relative z-[2] w-full flex flex-col flex-grow justify-center items-center px-5">
-    {#if enemy.activeCard}
-      <div class="absolute -top-14 z-20">
-        <Card card={enemy.activeCard} />
-      </div>
-    {/if}
-
-    <div class="bg-gray-700/30 w-full h-full flex justify-center items-center rounded-xl">
-      {#if final === 0}
-        <div class="text-sm font-medium text-gray-300">
-          {#if tip.length > 0}
-            {#key tip}
-              <p in:fly={flyConfig}>{tip}</p>
-            {/key}
-          {:else}
-            {#if !player.activeCard}
-              <p in:fly={flyConfig}>Выбери карту...</p>
-            {:else}
-              <p in:fly={flyConfig}>Ждем хода соперника...</p>
-            {/if}
-          {/if}
+    <div  class=" flex justify-between gap-4 p-5">
+      {#each DEFAULT_CARDS as card}
+        <div
+          class="transition-all duration-500 w-full max-w-[106px] bg-slate-600 rounded-md"
+          class:opacity-20={enemy.activeCard}
+        >
+          <Card
+            {card}
+            flipped
+            visible={!enemy.activeCard || final !== 0}
+            disabled={final !== 0}
+          />
         </div>
-      {:else}
-        <div class="text-xl font-medium ">
-          {#if final === 1}
-            <p in:fly={flyConfig} class="text-green-400">ТЫ ВЫИГРАЛ МАТЧ</p>
-          {:else}
-            <p in:fly={flyConfig} class="text-red-400">ТЫ ПРОИГРАЛ МАТЧ</p>
-          {/if}
+      {/each}
+    </div>
+
+    <div class="relative w-full flex flex-col flex-grow justify-center items-center px-5">
+      {#if enemy.activeCard}
+        <div class="absolute -top-14 z-20">
+          <Card card={enemy.activeCard} />
         </div>
       {/if}
 
+      <div class="bg-gray-700/30 w-full h-full flex justify-center items-center rounded-xl">
+        {#if final === 0}
+          <div class="text-sm font-medium text-gray-300">
+            {#if tip.length > 0}
+              {#key tip}
+                <p in:fly={flyConfig}>{tip}</p>
+              {/key}
+            {:else}
+              {#if !player.activeCard}
+                <p in:fly={flyConfig}>Выбери карту...</p>
+              {:else}
+                <p in:fly={flyConfig}>Ждем хода соперника...</p>
+              {/if}
+            {/if}
+          </div>
+        {:else}
+          <div class="text-xl font-medium ">
+            {#if final === 1}
+              <p in:fly={flyConfig} class="text-green-400">ТЫ ВЫИГРАЛ МАТЧ</p>
+            {:else}
+              <p in:fly={flyConfig} class="text-red-400">ТЫ ПРОИГРАЛ МАТЧ</p>
+            {/if}
+          </div>
+        {/if}
+
+      </div>
+
+      {#if player.activeCard}
+        <div class="absolute -bottom-14 z-20">
+          <Card card={player.activeCard} />
+        </div>
+      {/if}
     </div>
 
-    {#if player.activeCard}
-      <div class="absolute -bottom-14 z-20">
-        <Card card={player.activeCard} />
-      </div>
-    {/if}
-  </div>
+    <div class=" flex justify-between gap-4 p-5">
+      {#each cards as card}
+        <div
+          class="transition-all duration-500 w-full max-w-[106px] bg-slate-800 rounded-md"
+          class:opacity-20={player.activeCard}
+        >
+          <Card
+            {card}
+            visible={!player.activeCard || final !== 0}
+            disabled={final !== 0}
+            on:click={() => { onActivate(card) }}
+          />
+        </div>
+      {/each}
+    </div>
 
-  <div class="relative z-[1] flex justify-between gap-4 p-5">
-    {#each cards as card}
-      <div
-        class="transition-all duration-500 w-full max-w-[106px] bg-slate-800 rounded-md"
-        class:opacity-20={player.activeCard}
-      >
-        <Card
-          {card}
-          visible={!player.activeCard || final !== 0}
-          disabled={final !== 0}
-          on:click={() => { onActivate(card) }}
-        />
-      </div>
-    {/each}
-  </div>
-
-  <footer class="relative z-[2] w-full flex justify-center gap-4 px-5">
-    <div>
-      <Button>
+    <footer class="w-full flex justify-center gap-4 px-5">
+      <div class="flex flex-shrink-0 items-center justify-center rounded-full size-11 bg-[#4F4BE0] -mr-6 ring-4 ring-slate-900 relative z-[1]">
         <span class="text-lg">
           🚀
         </span>
-      </Button>
-    </div>
-    <UserBar username={$userStore.data?.username ?? ''} hp={player.hp}></UserBar>
-  </footer>
+      </div>
+      <UserBar username={$userStore.data?.username ?? ''} hp={player.hp}></UserBar>
+    </footer>
+  </div>
 </section>
 
 <Modal show={showModal}>

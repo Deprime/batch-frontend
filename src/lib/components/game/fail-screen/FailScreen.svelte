@@ -1,28 +1,25 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { tweened } from 'svelte/motion';
-  import { cubicOut } from 'svelte/easing';
 	import { goto } from '$app/navigation';
+  import { delay } from '$lib/helpers/async';
 
   // Components
   import { Button } from '$lib/components/ui';
 
   // Data
   let show = false;
-  const amount = tweened(1, {
-		duration: 3000,
-		easing: cubicOut
-	});
+  let loading = false;
 
   // Methods
-  const onNext = () => {
+  const onNext = async () => {
+    loading = true;
+    await delay(1000)
     goto('/')
   }
 
   onMount(() => {
     setTimeout(() => {
       show = true;
-      $amount = 320;
     }, 250)
   });
 </script>
@@ -37,13 +34,12 @@
     />
   </picture>
 
-  <h2 class="h2 text-center text-red-300 mb-6">
-    Вы проиграли матч!
+  <h2 class="h2 text-center text-rose-300 mb-6">
+    Вы проиграли матч
   </h2>
 
-
   <footer class="w-full flex justify-center">
-    <Button on:click={onNext} variant="secondary" class="!px-20">
+    <Button on:click={onNext} variant="secondary" {loading} disabled={loading} class="!px-20">
       Далее
     </Button>
   </footer>

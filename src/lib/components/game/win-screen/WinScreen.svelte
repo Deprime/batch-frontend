@@ -4,12 +4,14 @@
   import { tweened } from 'svelte/motion';
   import { cubicOut } from 'svelte/easing';
 	import { goto } from '$app/navigation';
+  import { delay } from '$lib/helpers/async';
 
   // Components
   import { Button } from '$lib/components/ui';
 
   // Data
   let show = false;
+  let loading = false;
   const confettiConfig = {
     particleCount: 100,
     particleSize: 8,
@@ -29,10 +31,11 @@
 
 
   // Methods
-  const onNext = () => {
+  const onNext = async () => {
+    loading = true;
+    await delay(1000)
     goto('/')
   }
-
 
   onMount(() => {
     setTimeout(() => {
@@ -70,7 +73,7 @@
   </div>
 
   <footer class="w-full flex justify-center">
-    <Button on:click={onNext} class="!px-20">
+    <Button on:click={onNext} {loading} disabled={loading} class="!px-20">
       Далее
     </Button>
   </footer>

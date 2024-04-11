@@ -32,7 +32,7 @@
     'Расставляем приоритеты'
   ];
   const flyConfig = {
-    duration: 950,
+    duration: 600,
     x: 0,
     y: 20,
     opacity: 0,
@@ -98,8 +98,8 @@
   })
 </script>
 
-<div class="w-full flex flex-col items-center gap-6">
-  <picture class="static block size-32 -mt-24">
+<div class="relative w-full flex flex-col items-center justify-center gap-6 pt-12 pb-4 min-h-40">
+  <picture class="absolute block size-32 -top-24">
     <img src="/images/dice.png" alt="dice" class=" transition-all duration-1000 size-auto"
       class:scale-50={!show}
       class:opacity-0={!show}
@@ -133,7 +133,7 @@
       {/key}
     </div>
 
-    <footer class="pb-4">
+    <footer>
       <Button variant="secondary" on:click={onCancel}>
         Отмена
       </Button>

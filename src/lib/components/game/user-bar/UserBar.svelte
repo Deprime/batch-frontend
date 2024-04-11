@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import confetti from 'canvas-confetti';
 
   // Props
   export let username: string;
@@ -9,8 +10,44 @@
   let max = 0;
   let state = 4;
 
+  let hpElement: HTMLSpanElement;
+  const confettiConfig = {
+    spread: 360,
+    ticks: 50,
+    gravity: 0,
+    decay: 0.95,
+    startVelocity: 10,
+    particleCount: 200,
+    scalar: 0.7,
+    shapes: "square",
+    // flat: true,
+    colors: ['FB1010']
+  };
+
+  $: showConfetti(hp)
   $: width = getWidth(hp);
 
+  // setInterval(() => {
+  //   showConfetti()
+  // }, 1000)
+
+  // Methods
+  const showConfetti = async ($$hp: number) => {
+    if (hpElement) {
+      var rect = hpElement.getBoundingClientRect();
+      const x = rect.left / document.body.clientWidth;
+      const y = rect.top / document.body.clientHeight;
+      confetti({
+        ...confettiConfig,
+        origin: { x, y }
+      });
+    }
+  }
+
+  /**
+   * Get bar width
+   * @param {Number} $$hp
+   */
   const getWidth = ($$hp: number) => {
     if (max === 0)
       return 100;
@@ -39,23 +76,26 @@
   })
 </script>
 
-<div class="rounded-lg bg-gray-300/20 px-4 py-2 text-white font-medium w-full flex items-center relative">
-  <div
-    class="rounded-lg absolute inset-0 z-0 transition-all duration-1000"
-    class:bg-green-500={state === 4}
-    class:bg-yellow-500={state === 3}
-    class:bg-orange-500={state === 2}
-    class:bg-red-500={state === 1}
-    style="width: {width}%"
-  />
-  <div class="relative z-10 flex w-full">
-    <h4 class="h4 flex flex-grow">
-      <span class="bg-slate-900/50 inline-flex px-1.5 rounded-lg">
-        {username}
+
+<div class="rounded-r-lg border-stone-400/50 border w-full">
+  <div class="rounded-r-lg bg-gray-300/20 px-4 py-2 text-white font-medium w-full h-full flex items-center relative">
+    <div
+      class="rounded-r-lg absolute inset-0 z-0 transition-all duration-1000"
+      class:bg-green-500={state === 4}
+      class:bg-yellow-500={state === 3}
+      class:bg-orange-500={state === 2}
+      class:bg-red-500={state === 1}
+      style="width: {width}%"
+    />
+    <div class="relative z-10 flex w-full">
+      <h4 class="h4 flex flex-grow">
+        <span class="bg-slate-900/50 inline-flex px-2 rounded">
+          {username}
+        </span>
+      </h4>
+      <span bind:this={hpElement} class="relative font-bold">
+        ❤️ {hp}
       </span>
-    </h4>
-    <span>
-      ❤️ {hp}
-    </span>
+    </div>
   </div>
 </div>

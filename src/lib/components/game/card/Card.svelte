@@ -44,8 +44,9 @@
 <style  scoped lang="scss">
   .card {
     @apply flex flex-col items-center justify-between;
-    @apply transition-all rounded-md bg-gradient-to-br from-gray-200 to-gray-400;
+    @apply transition-all rounded-md bg-gradient-to-br from-stone-100 to-stone-300;
     @apply w-full max-w-[106px] h-[136px] p-0.5;
+
 
     &-title {
       @apply text-sm font-semibold text-gray-800 pb-1;
@@ -59,6 +60,8 @@
       @apply -translate-y-6;
     }
 
-    &--active {}
+    &--active {
+      box-shadow: 4px 4px 30px 0 #272727;
+    }
   }
 </style>

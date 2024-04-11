@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import confetti from 'canvas-confetti';
+  import type { Shape } from 'canvas-confetti';
 
   // Props
   export let username: string;
@@ -18,29 +19,32 @@
     decay: 0.95,
     startVelocity: 10,
     particleCount: 200,
-    scalar: 0.7,
-    shapes: "square",
+    scalar: 0.6,
+    shapes: <Shape[]> ["square"],
     // flat: true,
-    colors: ['FB1010']
+    colors: ['FB1010', 'BA0000', 'BA2100']
   };
 
   $: showConfetti(hp)
   $: width = getWidth(hp);
 
-  // setInterval(() => {
-  //   showConfetti()
-  // }, 1000)
-
   // Methods
-  const showConfetti = async ($$hp: number) => {
+  const showConfetti = async (_hp: number) => {
     if (hpElement) {
       var rect = hpElement.getBoundingClientRect();
       const x = rect.left / document.body.clientWidth;
       const y = rect.top / document.body.clientHeight;
       confetti({
         ...confettiConfig,
+        scalar: 0.4,
         origin: { x, y }
       });
+      setTimeout(() => {
+        confetti({
+        ...confettiConfig,
+          origin: { x, y }
+        });
+      }, 200)
     }
   }
 
@@ -75,7 +79,6 @@
     max = hp;
   })
 </script>
-
 
 <div class="rounded-r-lg border-stone-400/50 border w-full">
   <div class="rounded-r-lg bg-gray-300/20 px-4 py-2 text-white font-medium w-full h-full flex items-center relative">

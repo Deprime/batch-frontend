@@ -6,6 +6,8 @@
 	import { goto } from '$app/navigation';
   import { delay } from '$lib/helpers/async';
 
+  import type { ConfettiParticleShape } from '@neoconfetti/svelte';
+
   // Components
   import { Button } from '$lib/components/ui';
 
@@ -20,7 +22,7 @@
     stageWidth: 900,
     colors: ['#FFF176', '#FFD84F', '#FFA012'],
     duration: 4000,
-    particleShape: 'rectangles',
+    particleShape:<ConfettiParticleShape> 'rectangles',
     origin: { y: 0.5, x: 0.5 },
   };
 
@@ -67,7 +69,7 @@
     <h1 class="h1 text-white flex justify-center items-center gap-2">
       <img src="/images/ton_symbol.svg" alt="ton" class="size-5">
       <span class="w-14">
-        {parseInt($amount)}
+        {parseInt(`${$amount}`)}
       </span>
     </h1>
   </div>

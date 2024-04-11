@@ -4,22 +4,25 @@
 	import { quintOut } from 'svelte/easing';
 	import { goto } from '$app/navigation';
 
+  type TIntervalId = ReturnType<typeof setInterval>;
+  type TTimeoutId = ReturnType<typeof setTimeout>;
+
   // Components
   import { Button } from '$lib/components/ui';
-  import userStore from '$lib/stores/user';
+  // import userStore from '$lib/stores/user';
   import { delay } from '$lib/helpers/async';
   import { getRandomInt } from '$lib/helpers/math';
 
   // Data
   const dispatch = createEventDispatcher();
-  let timerId;
+  let timerId: TIntervalId;
   let counter = 1;
   let timeTracker = '00:01';
   let show = false;
   let successTimeout = getRandomInt(5000, 9000);
   let success = false;
-  let timeoutId;
-  let intervalId;
+  let timeoutId: TTimeoutId;
+  let intervalId: TIntervalId;
 
   let phrase = '';
   const phrases = [

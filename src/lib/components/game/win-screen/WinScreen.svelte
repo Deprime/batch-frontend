@@ -67,7 +67,7 @@
       Ваш выигрыш:
     </p>
     <h1 class="h1 text-white flex justify-center items-center gap-2">
-      <img src="/images/ton_symbol.svg" alt="ton" class="size-5">
+      <img src="/images/ton.png" alt="ton" class="size-7 brightness-125">
       <span class="w-14">
         {parseInt(`${$amount}`)}
       </span>

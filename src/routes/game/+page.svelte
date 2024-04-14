@@ -33,6 +33,8 @@
   let player: IBasePlayer = { ...DEFAULT_PLAYER };
   let enemy: IBasePlayer = { ...DEFAULT_PLAYER };
 
+  let roundResult: -1|0|1|null = null;
+
   const flyConfig = {
     delay: 150,
     duration: 700,
@@ -93,6 +95,7 @@
   const startRound = () => {
     resetDeck();
     resetPlayersActivity();
+    roundResult = null;
     tip = '';
   }
 
@@ -110,6 +113,8 @@
    * @param result
    */
   const setRoundResult = (result: -1|0|1) => {
+    roundResult = result;
+
     switch (result) {
       case -1:
         tip = 'Ты проиграл раунд ☹️';
@@ -177,7 +182,7 @@
     if (final === 0) {
       setTimeout(() => {
         startRound();
-      }, 2000)
+      }, 2300)
     }
   }
 
@@ -278,9 +283,15 @@
 
     <div class="relative w-full flex flex-col flex-grow justify-center items-center px-5">
       {#if enemy.activeCard}
-        <div class="absolute -top-14 z-20">
-          <Card card={enemy.activeCard} />
-        </div>
+        {#each [1,2] as el}
+          <div class="absolute -top-14 z-20">
+            <Card
+              card={enemy.activeCard}
+              fail={roundResult === 1}
+              first={el === 1}
+            />
+          </div>
+        {/each}
       {/if}
 
       <div class="bg-gray-700/30 w-full h-full flex justify-center items-center rounded-xl">
@@ -307,17 +318,22 @@
             {/if}
           </div>
         {/if}
-
       </div>
 
       {#if player.activeCard}
-        <div class="absolute -bottom-14 z-20">
-          <Card card={player.activeCard} />
-        </div>
+        {#each [1,2] as el}
+          <div class="absolute -bottom-14 z-20">
+            <Card
+              card={player.activeCard}
+              fail={roundResult === -1}
+              first={el === 1}
+            />
+          </div>
+        {/each}
       {/if}
     </div>
 
-    <div class=" flex justify-between gap-4 p-5">
+    <div class="flex justify-between gap-4 p-5">
       {#each cards as card}
         <div
           class="transition-all duration-500 w-full max-w-[106px] bg-slate-800 rounded-md"

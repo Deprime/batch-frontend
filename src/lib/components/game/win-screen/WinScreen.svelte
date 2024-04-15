@@ -36,7 +36,7 @@
   const onNext = async () => {
     loading = true;
     await delay(1000)
-    goto('/')
+    await goto('/')
   }
 
   onMount(() => {

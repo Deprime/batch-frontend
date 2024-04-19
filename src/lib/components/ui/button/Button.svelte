@@ -10,20 +10,47 @@
   export let loading = false;
 
   // Data
+  let touch = false;
   const dispatch = createEventDispatcher();
 
   // Methods
+
+  /**
+   * On click event
+   * @param e
+   */
   const onClick = (e) => {
     if (!disabled) {
       dispatch('click', e);
     }
   }
+
+  /**
+   * Touch start event
+   * @description binded additional animation
+   */
+  const onTouchStart = () => {
+    if (!disabled) {
+      touch = true;
+    }
+  };
+
+  /**
+   * Touch end event
+   */
+  const onTouchEnd = () => {
+    touch = false;
+  };
 </script>
 
 <button
   {disabled}
   class="bt-button bt-button--variant-{variant} {$$props.class}"
+  class:translate-y-0.5={touch}
+
   on:click={onClick}
+  on:touchstart={onTouchStart}
+  on:touchend={onTouchEnd}
 >
   {#if loading}
     <Loader size="sm"  />
@@ -34,7 +61,6 @@
 
 <style lang="scss">
   .bt-button {
-
     @apply relative;
     @apply px-4 py-3;
     @apply flex items-center justify-center w-fit;

@@ -10,7 +10,7 @@
 
 <style lang="scss">
   .bt-plate {
-    @apply rounded-xl px-5 py-4;
+    @apply rounded-xl px-3.5 py-3;
 
     &--variant {
       &-secondary {

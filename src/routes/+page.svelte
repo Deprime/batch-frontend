@@ -1,9 +1,11 @@
 <script lang="ts">
-	// import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
 
   // Components
-  import { Button, Plate, Modal } from '$lib/components/ui';
+  import { StoreIcon, SquareCheckIcon, SwordsIcon } from 'lucide-svelte';
+
+  import { Button, Modal } from '$lib/components/ui';
   import { MatchSearch } from '$lib/components/game';
   import { TaskList, Profile } from '$lib/components/widgets';
 
@@ -23,6 +25,10 @@
   const closeSearchModal = () => {
     modalMatchSearch.show = false;
   }
+
+  const gotoMarket = () => {
+    goto('/market')
+  }
 </script>
 
 <svelte:head>
@@ -39,26 +45,27 @@
 
     <footer class="w-full sticky bottom-10 flex flex-col justify-center gap-4">
       <Button class="!w-full gap-2" on:click={onMatchClick}>
-        <span>
-          ⚔️
-        </span>
-        Найти матч
+        <SwordsIcon />
+        Играть
       </Button>
     </footer>
 
-    <nav class="flex gap-4">
-      <Button variant="secondary" class="!w-full gap-1">
-        <span class="text-xl">
-          ✅
-        </span>
+    <nav class="grid grid-cols-2 gap-4">
+      <Button variant="secondary" class="!w-full gap-2">
+        <SquareCheckIcon />
         Задания
       </Button>
 
-      <Button variant="secondary" class="!w-full gap-1">
-        <span class="text-xl">
+      <Button variant="secondary" class="!w-full gap-2">
+        <span>
           🤝
         </span>
-        Рефералы
+        Друзья
+      </Button>
+
+      <Button variant="secondary" class="!w-full col-span-2 gap-3" on:click={gotoMarket}>
+        <StoreIcon />
+        Маркет
       </Button>
     </nav>
 

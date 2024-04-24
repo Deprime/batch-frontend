@@ -32,7 +32,7 @@
   on:click={onClick}
 >
   <img
-    src="/images/cards/{card.src}.png"
+    src={card.src}
     alt={card.title}
     class="card-image"
     class:opacity-0={flipped}

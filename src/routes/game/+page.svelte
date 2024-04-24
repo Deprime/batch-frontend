@@ -19,9 +19,9 @@
   // Data
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
   const DEFAULT_CARDS: ICard[] = [
-    {id: 1, title: "Камень", src: "stone", selected: false, active: false,},
-    {id: 2, title: "Ножницы", src: "sword", selected: false, active: false,},
-    {id: 3, title: "Бумага", src: "paper",  selected: false, active: false,},
+    {id: 1, title: "Камень", src: "https://brijak-realty.b-cdn.net/batch/stone.png", selected: false, active: false,},
+    {id: 2, title: "Ножницы", src: "https://brijak-realty.b-cdn.net/batch/sword.png", selected: false, active: false,},
+    {id: 3, title: "Бумага", src: "https://brijak-realty.b-cdn.net/batch/paper.png",  selected: false, active: false,},
   ];
   let cards: ICard[] = DEFAULT_CARDS.map(el => ({...el}));
 

@@ -1,13 +1,13 @@
 
 <script lang="ts">
   // Components
-  import { Plate } from '$lib/components/ui';
   import { Gamepad2 } from 'lucide-svelte';
+  import { TonIcon, GoldIcon, ShardIcon } from '$lib/components/icons';
   import userStore from '$lib/stores/user';
 </script>
 
-<Plate>
-  <div class="flex justify-between items-center mb-3">
+<section class="flex flex-col w-full ">
+  <div class="flex justify-between items-center text-white bg-white/10 py-2.5 px-3 rounded-t-lg">
     <header class="w-full">
       <h4 class="h4 mb-1">
         {$userStore.data?.username}
@@ -27,9 +27,9 @@
     </figure>
   </div>
 
-  <footer class="flex w-full gap-5 bg-white/10 py-2.5 px-3 rounded-lg">
-    <div class="flex items-center gap-3 w-full">
-      <img src="/images/ton.png" alt="ton" class="size-6 brightness-125">
+  <footer class="flex w-full gap-5 bg-white/10 rounded-b-lg border-t border-t-black/40 divide-x divide-black/40">
+    <div class="flex items-center gap-3 w-full py-2.5 px-4">
+      <TonIcon />
       <span
         class="text-blue-200 font-bold"
         id="wallet-ton"
@@ -38,8 +38,8 @@
       </span>
     </div>
 
-    <div class="flex items-center gap-3 w-full">
-      <img src="/images/chainlink.png" alt="gold" class="size-6 brightness-95">
+    <div class="flex items-center gap-3 w-full py-2.5 px-4">
+      <GoldIcon />
       <span
         class="text-yellow-200 font-bold"
         id="wallet-gold"
@@ -48,8 +48,8 @@
       </span>
     </div>
 
-    <div class="flex items-center gap-3 w-full">
-      <img src="/images/shard.png" alt="shard" class="size-6 brightness-125">
+    <div class="flex items-center gap-3 w-full py-2.5 px-4">
+      <ShardIcon />
       <span
         class="text-red-200 font-bold"
         id="wallet-shard"
@@ -58,4 +58,4 @@
       </span>
     </div>
   </footer>
-</Plate>
+</section>

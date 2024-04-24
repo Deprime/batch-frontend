@@ -15,7 +15,7 @@
     &--variant {
       &-secondary {
         @apply text-white;
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.05);
         // background-color: rgba(33, 72, 139, 0.6);
         // @apply text-whirgb(29, 59, 110)radient-to-br from-indigo-900 to-indigo-950;
       }

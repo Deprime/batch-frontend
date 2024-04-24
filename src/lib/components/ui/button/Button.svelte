@@ -14,7 +14,6 @@
   const dispatch = createEventDispatcher();
 
   // Methods
-
   /**
    * On click event
    * @param e
@@ -70,24 +69,18 @@
     &--variant {
       &-secondary {
         @apply text-white;
-        @apply bg-slate-500;
-        text-shadow: 0px 1px 1px rgb(67, 79, 97);
-        box-shadow: 0px 3px 0 0 rgb(67, 79, 97);
+        @apply bg-white/10;
+        @apply border border-white/10;
       }
 
       &-primary {
-        @apply text-white;
-        @apply bg-blue-500;
-        text-shadow: 0px 1px 1px rgb(29, 84, 173);
-        box-shadow: 0px 3px 0 0 rgb(29, 84, 173);
+        @apply text-black;
+        background-color: #00ff92;
       }
 
       &-yellow {
-        @apply font-extrabold;
-        @apply text-gray-800;
-        // @apply bg-yellow-400;
-        @apply bg-gradient-to-b from-yellow-300 to-yellow-400;
-        box-shadow: 0px 3px 0 0 rgb(194, 156, 6);
+        @apply text-black;
+        background-color: rgb(255, 229, 0);
       }
 
       &-ghost {

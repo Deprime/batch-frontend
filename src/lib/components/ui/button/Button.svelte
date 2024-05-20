@@ -75,12 +75,12 @@
 
       &-primary {
         @apply text-black;
-        background-color: #00ff92;
+        background-color: var(--green-base);
       }
 
       &-yellow {
         @apply text-black;
-        background-color: rgb(255, 229, 0);
+        background-color: var(--yellow-base);
       }
 
       &-ghost {

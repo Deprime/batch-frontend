@@ -43,6 +43,10 @@
   <div class="relative z-[2] p-5 flex flex-col gap-4">
     <Profile />
 
+    <figure class="flex justify-center py-4">
+      <img src="/images/first-girl.png" alt="" class="max-h-64 active:translate-y-1.5 active:scale-90 transition-all duration-100">
+    </figure>
+
     <footer class="w-full sticky bottom-10 flex flex-col justify-center gap-4">
       <Button class="!w-full gap-2" on:click={onMatchClick}>
         <SwordsIcon />
@@ -69,7 +73,7 @@
       </Button>
     </nav>
 
-    <TaskList />
+    <!-- <TaskList /> -->
   </div>
 </section>
 

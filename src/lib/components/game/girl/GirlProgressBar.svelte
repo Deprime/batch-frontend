@@ -1,9 +1,9 @@
 <script lang="ts">
   // Props
   export let exp = 0;
+  export let max = 20;
 
   // Data
-  let max = 20;
   let state = 1;
 
   $: width = getWidth(exp);

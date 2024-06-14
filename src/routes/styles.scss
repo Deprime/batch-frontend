@@ -43,6 +43,10 @@ body {
   @apply font-semibold text-base;
 }
 
+.label-small {
+  @apply text-xs leading-3 text-gray-300;
+}
+
 .glow-purple {
   opacity: 0.4;
   box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.3),

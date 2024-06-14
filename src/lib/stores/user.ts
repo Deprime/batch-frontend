@@ -1,4 +1,4 @@
-import { persisted } from 'svelte-local-storage-store';
+import { persisted } from 'svelte-persisted-store';
 
 // Types
 import type { IUser, UUserState } from '$lib/types/user';

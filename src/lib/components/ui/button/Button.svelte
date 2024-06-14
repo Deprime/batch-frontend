@@ -46,7 +46,6 @@
   {disabled}
   class="bt-button bt-button--variant-{variant} {$$props.class}"
   class:translate-y-0.5={touch}
-
   on:click={onClick}
   on:touchstart={onTouchStart}
   on:touchend={onTouchEnd}
@@ -61,10 +60,11 @@
 <style lang="scss">
   .bt-button {
     @apply relative;
-    @apply px-4 py-3;
+    @apply px-4 py-2.5;
     @apply flex items-center justify-center w-fit;
     @apply rounded-xl transition-all active:translate-y-1;
     @apply font-bold subpixel-antialiased;
+    @apply select-none;
 
     &--variant {
       &-secondary {

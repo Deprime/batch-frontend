@@ -3,10 +3,12 @@
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
 
   // Components
-  import { StoreIcon, SquareCheckIcon, SwordsIcon } from 'lucide-svelte';
-  import { Button, Modal, Image } from '$lib/components/ui';
+  import { StoreIcon, SquareCheckIcon,
+    // SwordsIcon
+  } from 'lucide-svelte';
+  import { Button, Modal,  } from '$lib/components/ui';
   import { MatchSearch, GirlCard, GirlBuyPlaceholder } from '$lib/components/game';
-  import { TaskList, Profile } from '$lib/components/widgets';
+  import { Profile } from '$lib/components/widgets';
 
   // Stores
   import { girlsStore } from '$lib/stores';
@@ -21,9 +23,9 @@
   /**
    * Go to match
    */
-  const onMatchClick = () => {
-    // modalMatchSearch.show = true;
-  }
+  // const onMatchClick = () => {
+  //   // modalMatchSearch.show = true;
+  // }
 
   const closeSearchModal = () => {
     modalMatchSearch.show = false;

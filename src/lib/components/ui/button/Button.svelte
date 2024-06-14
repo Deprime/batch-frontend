@@ -8,6 +8,7 @@
   export let variant: 'primary' | 'secondary' | 'yellow' | 'ghost' = "primary";
   export let disabled = false;
   export let loading = false;
+  export let block = false;
 
   // Data
   let touch = false;
@@ -44,7 +45,7 @@
 
 <button
   {disabled}
-  class="bt-button bt-button--variant-{variant} {$$props.class}"
+  class="bt-button bt-button--variant-{variant} {block ? "bt-button--block" : ""} {$$props.class}"
   class:translate-y-0.5={touch}
   on:click={onClick}
   on:touchstart={onTouchStart}
@@ -65,6 +66,10 @@
     @apply rounded-xl transition-all active:translate-y-1;
     @apply font-bold subpixel-antialiased;
     @apply select-none;
+
+    &--block {
+      @apply w-full;
+    }
 
     &--variant {
       &-secondary {

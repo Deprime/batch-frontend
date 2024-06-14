@@ -1,16 +1,16 @@
 import { persisted } from 'svelte-persisted-store';
 
 // Types
-import { type IGirl } from '$lib/constants/mock';
+import type { IGirl } from "$lib/types/girl";
 
-const $$ducks = {
+const DEFAULT_STATE = {
   data: <IGirl[]>  [],
   cookie: <string|null>  null,
   loading: false,
 }
 
-const { subscribe, set, update } = persisted('ducks', $$ducks);
-const clear = () => set($$ducks);
+const { subscribe, set, update } = persisted('girls', DEFAULT_STATE);
+const clear = () => set(DEFAULT_STATE);
 
 const setLoading = (state: boolean): void => {
   update(value => ({ ...value, loading: state }))
@@ -21,8 +21,8 @@ const setData = (data: IGirl[]): void => {
 };
 
 
-const addDuck = async (duck: IGirl) => {
-  update(value => ({ ...value, data: [...value.data, { ...duck}] }));
+const addGirl= async (girl: IGirl) => {
+  update(value => ({ ...value, data: [...value.data, { ...girl}] }));
 }
 
 const girlsStore = {
@@ -31,7 +31,7 @@ const girlsStore = {
   update,
   clear,
   setData,
-  addDuck,
+  addGirl,
   setLoading,
 };
 

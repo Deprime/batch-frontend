@@ -3,7 +3,7 @@
 
   // Components
   import Button from "$lib/components/ui/button/Button.svelte";
-  import girlService from "$lib/services/ducks";
+  import girlService from "$lib/services/girls";
   import { delay } from "$lib/helpers/async";
 
   import { FIRST_GIRL_PRICE } from "$lib/constants/app";

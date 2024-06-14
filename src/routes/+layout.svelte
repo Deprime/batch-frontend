@@ -6,13 +6,20 @@
   import { Loader } from '$lib/components/ui';
   import { delay } from '$lib/helpers/async';
 	import userStore from '$lib/stores/user';
-  import { DEV_MODE_USER } from '$lib/config/app';
+  import { DEV_MODE_USER } from '$lib/constants/mock';
 
   // Data
   let loading = true;
   let show = false;
 
-  const onAuth = async () => {
+  const onAuth = async (mocked = false) => {
+    if (mocked && !$userStore.data?.candy) {
+      userStore.setData(DEV_MODE_USER);
+      await delay(550);
+      loading = false;
+      return;
+    }
+
     try {
       userStore.setData(DEV_MODE_USER);
       await delay(550);
@@ -28,7 +35,7 @@
   onMount(async () => {
     await delay(50);
     show = true;
-    await onAuth();
+    await onAuth(true);
   });
 </script>
 

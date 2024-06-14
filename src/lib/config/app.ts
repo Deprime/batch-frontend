@@ -1,5 +1,3 @@
-import type { IUser } from "$lib/types/user";
-
 const ENV = import.meta.env;
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -15,10 +13,3 @@ export const IS_PROD_DOMAIN = LANDING_HOST.includes('sgame.ai');
 export const CENTRIFUGO_API_URL = VITE_CENTRIFUGO_API_URL ?? `wss://c.${domain}/connection/websocket`;
 
 export const IS_DEV_MODE = ENV.MODE === 'development';
-
-export const DEV_MODE_USER: IUser = {
-  id: 1,
-  username: 'HypePlayer',
-  language_code: 'ru',
-  state: 'none',
-}

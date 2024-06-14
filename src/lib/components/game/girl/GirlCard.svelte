@@ -1,36 +1,96 @@
 <script lang="ts">
+  import confetti from 'canvas-confetti';
+  import type { Shape } from 'canvas-confetti';
+
   // Components
+  import CandyIcon from "$lib/components/icons/CandyIcon.svelte";
   import Image from "$lib/components/ui/image/Image.svelte";
   import GirlProgressBar from "./GirlProgressBar.svelte";
 
   // Types
-	import type { IGirl } from "$lib/constants/mock";
+	import type { IGirl } from "$lib/types/girl";
 
-  import { girlsStore } from "$lib/stores";
+  import { girlsStore, userStore } from "$lib/stores";
 
   // Props
   export let girl: IGirl;
   export let index: number;
 
   // Data
-
-  let exp = 0;
+  let chanElement: HTMLSpanElement;
+  const confettiConfig = {
+    spread: 360,
+    ticks: 50,
+    gravity: 0,
+    decay: 0.95,
+    startVelocity: 10,
+    particleCount: 200,
+    scalar: 0.6,
+    shapes: <Shape[]> ["square"],
+    // flat: true,
+    // colors: ['FB1010', 'BA0000', 'BA2100']
+  };
 
   // Methods
+
+  const showConfetti = async () => {
+    if (chanElement) {
+      var rect = chanElement.getBoundingClientRect();
+      const x = (rect.left + (rect.width/2)) / document.body.clientWidth;
+      const y = (rect.top + (rect.height/2)) / document.body.clientHeight;
+      const origin = { x, y };
+
+      confetti({
+        ...confettiConfig,
+        scalar: 0.4,
+        origin
+      });
+
+      setTimeout(() => {
+        confetti({
+        ...confettiConfig,
+          origin
+        });
+      }, 400)
+
+      setTimeout(() => {
+        confetti({
+        ...confettiConfig,
+          origin
+        });
+      }, 800)
+    }
+  }
+
   /**
    * On girl click
    */
   const onClick = () => {
     try {
       if ($girlsStore.data[index]) {
-        const { exp, exp_limit } = $girlsStore.data[index];
-        if (exp < exp_limit) {
-          $girlsStore.data[index].exp += 1;
+        const { exp, exp_limit, feed_price, feed_multiplier, token_per_feed, level } = $girlsStore.data[index];
+        // const price = feed_price + (level - 1);
+        const price = level;
+
+        if ($userStore.data && $userStore.data?.candy >= price) {
+          $userStore.data.candy -= price;
+          $userStore.data.token += token_per_feed;
+          $girlsStore.data[index].token_balance += token_per_feed;
+
+          if (exp < exp_limit) {
+            $girlsStore.data[index].exp += 1;
+          }
+          else {
+            // Level up
+            showConfetti();
+            $girlsStore.data[index].level += 1;
+            $girlsStore.data[index].feed_price += 1;
+            $girlsStore.data[index].exp = 0;
+            $girlsStore.data[index].exp_limit = parseInt(exp_limit * 1.6);
+          }
         }
         else {
-          $girlsStore.data[index].level += 1;
-          $girlsStore.data[index].exp = 0;
-          $girlsStore.data[index].exp_limit = parseInt(exp_limit * 1.6);
+          console.log('Not enough candy');
         }
       }
     }
@@ -41,27 +101,32 @@
 </script>
 
 <div class="w-full flex flex-col justify-center gap-y-4 py-4">
-  <GirlProgressBar exp={girl.exp} max={girl.exp_limit} />
+  <GirlProgressBar exp={girl.exp} max={girl.exp_limit} level={girl.level} />
   <figure class="w-full flex justify-center items-center p2-4 relative z-10">
-    <button on:click={onClick}>
+    <button on:click={onClick} bind:this={chanElement}>
       <Image
         cdn
         src={girl.image}
         class="h-72 active:translate-y-1 active:scale-90 transition-all duration-[40ms]"
       />
     </button>
+
+    <div class="flex flex-col   absolute bottom-0 left-0">
+      <p class="font-bold text-white">
+        {girl.name}
+      </p>
+      <p class="label-small">
+        idx {index}
+      </p>
+    </div>
   </figure>
 
-  <div class="flex items-center font-bold">
-    <p class="text-white">
-      idx {index} {girl.name}
-    </p>
-  </div>
+
 
   <footer class="flex w-full gap-5 bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
     <div class="flex flex-col items-center justify-center gap-1 w-1/3 py-2 px-4">
       <p class="font-bold text-white flex justify-end items-center gap-2 w-full">
-        {girl.feed_price} <img src="/images/candy.png" alt="" class="size-5">
+        {girl.feed_price} <CandyIcon />
       </p>
       <!-- <p class="label-small">Feed cost</p> -->
     </div>

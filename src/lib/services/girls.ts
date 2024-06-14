@@ -2,7 +2,8 @@ import { get } from 'svelte/store';
 
 // import { ducksApi } from '$lib/api';
 import { girlsStore } from '$lib/stores';
-import { MOCK_GIRL, type IGirl } from '$lib/constants/mock';
+import { MOCK_GIRL } from '$lib/constants/mock';
+import type { IGirl } from "$lib/types/girl";
 
 const girlService = {
   /**
@@ -13,7 +14,7 @@ const girlService = {
 
       const store = get(girlsStore)
       const id = store.data.length + 1;
-      girlsStore.addDuck({ ...MOCK_GIRL, id } as IGirl);
+      girlsStore.addGirl({ ...MOCK_GIRL, id } as IGirl);
     }
     else {
       // try {

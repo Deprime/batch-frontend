@@ -1,21 +1,5 @@
-export type IGirl = {
-  id: number,
-  user_id: number,
-  image: string,
-  name: string,
-  rarity: string,
-  state: "feed"|"dance_ready"|"dance"|"sleep"|"stake",
-  exp: number,
-  exp_limit: number,
-  level: number,
-  box_points: number[],
-  feed_started_at: number,
-  feed_price: number,
-  feed_multiplier: number,
-  token_balance: number,
-  token_per_feed: number,
-  slot_index: number,
-}
+import type { IUser } from "$lib/types/user";
+import type { IGirl } from "$lib/types/girl";
 
 export const MOCK_GIRL: IGirl = {
   id: 1,
@@ -35,3 +19,16 @@ export const MOCK_GIRL: IGirl = {
   token_per_feed: 0.04,
   slot_index: 1,
 };
+
+
+export const DEV_MODE_USER: IUser = {
+  id: 1,
+  username: 'HypePlayer',
+  language_code: 'ru',
+  state: 'none',
+  candy: 50,
+  token: 0,
+  star: 30,
+  girl_slots: 1,
+  box_slots: 2,
+}

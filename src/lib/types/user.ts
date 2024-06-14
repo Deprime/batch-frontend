@@ -6,4 +6,9 @@ export interface IUser {
   username: string,
   language_code: string,
   state: UUserState,
+  candy: number,
+  token: number,
+  star: number,
+  girl_slots: number,
+  box_slots: number,
 }

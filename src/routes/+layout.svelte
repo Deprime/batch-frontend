@@ -15,7 +15,7 @@
   const onAuth = async () => {
     try {
       userStore.setData(DEV_MODE_USER);
-      await delay(2000);
+      await delay(550);
     }
     catch (err) {
       console.log(err)

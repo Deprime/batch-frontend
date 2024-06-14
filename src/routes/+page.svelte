@@ -5,14 +5,16 @@
   // Components
   import { StoreIcon, SquareCheckIcon, SwordsIcon } from 'lucide-svelte';
 
-  import { Button, Modal } from '$lib/components/ui';
-  import { MatchSearch } from '$lib/components/game';
+  import { Button, Modal, Image } from '$lib/components/ui';
+  import { MatchSearch, GirlCard } from '$lib/components/game';
   import { TaskList, Profile } from '$lib/components/widgets';
 
   // Data
   const modalMatchSearch = {
     show: false,
   };
+
+
 
   // Methods
   /**
@@ -29,6 +31,8 @@
   const gotoMarket = () => {
     goto('/market')
   }
+
+
 </script>
 
 <svelte:head>
@@ -43,21 +47,18 @@
   <div class="relative z-[2] p-5 flex flex-col gap-4">
     <Profile />
 
-    <figure class="flex justify-center py-4">
-      <img src="/images/first-girl.png" alt="" class="max-h-64 active:translate-y-1.5 active:scale-90 transition-all duration-100">
-    </figure>
+
+    <GirlCard />
 
     <footer class="w-full sticky bottom-10 flex flex-col justify-center gap-4">
       <Button class="!w-full gap-2" on:click={onMatchClick}>
-        <SwordsIcon />
-        Играть
+        <SwordsIcon /> Играть
       </Button>
     </footer>
 
     <nav class="grid grid-cols-2 gap-4">
       <Button variant="secondary" class="!w-full gap-2">
-        <SquareCheckIcon />
-        Задания
+        <SquareCheckIcon /> Задания
       </Button>
 
       <Button variant="secondary" class="!w-full gap-2">

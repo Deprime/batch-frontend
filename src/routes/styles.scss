@@ -17,17 +17,35 @@
   @apply bg-[var(--primary-bg)];
 }
 
-
 body {
-  // @apply bg-slate-900  bg-gradient-to-b from-slate-800 to-slate-950;
   @apply bg-[var(--primary-bg)];
-  // @apply bg-gradient-to-b from-[#0B234D] to-[#081c3f];
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  overflow: hidden;
 }
 .h-full-dynamic {
   height: 100dvh;
+  overflow: hidden;
+}
+
+.candy {
+  @apply size-5 inline-block;
+  @apply bg-no-repeat bg-cover bg-center;
+  @apply bg-[url("/images/candy.png")];
+
+  &--fly {
+    @apply absolute;
+  }
+}
+
+.canvas-candy {
+  position: absolute;
+  z-index: 1;
+  transition: opacity 0.3s ease,
+    scale 0.4s ease,
+    left 0.4s ease-in,
+    top 0.4s ease-in;
 }
 
 .h1 {

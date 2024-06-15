@@ -63,8 +63,8 @@
       girlsStore.clear();
 
       await delay(750);
-      modalSession.show = false;
       sure = false;
+      modalSession.show = false;
     }
     sure = true;
   }

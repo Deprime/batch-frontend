@@ -3,33 +3,33 @@
   const VITE_APP_NAME = import.meta.env.VITE_APP_NAME;
 
   // Components
-  import { StoreIcon, SquareCheckIcon,
+  import {
+    StoreIcon,
+    SquareCheckIcon,
+    GiftIcon,
+    HeartIcon,
     // SwordsIcon
   } from 'lucide-svelte';
-  import { Button, Modal,  } from '$lib/components/ui';
+  import { Button, } from '$lib/components/ui';
   import { MatchSearch, GirlCard, GirlBuyPlaceholder } from '$lib/components/game';
   import { Profile } from '$lib/components/widgets';
 
   // Stores
   import { girlsStore } from '$lib/stores';
 
-  // Data
-  const modalMatchSearch = {
-    show: false,
-  };
+
+
 
 
   // Methods
-  /**
-   * Go to match
-   */
-  // const onMatchClick = () => {
-  //   // modalMatchSearch.show = true;
-  // }
-
-  const closeSearchModal = () => {
-    modalMatchSearch.show = false;
+  const gotoHome = () => {
+    // goto('/')
   }
+
+  const gotoStore = () => {
+    // goto('/store')
+  }
+
 
   const gotoMarket = () => {
     goto('/market')
@@ -41,51 +41,62 @@
 	<meta name="description" content="Game session" />
 </svelte:head>
 
-<section class="h-full-dynamic relative">
+<section class="h-full-dynamic w-full flex flex-col justify-between relative ">
   <div class="size-0 absolute z-[1] top-10 right-10 glow-purple" />
   <div class="size-0 absolute z-[1] bottom-32 left-10 glow-blue" />
 
-  <div class="relative z-[2] p-5 flex flex-col gap-4 h-full">
+  <div class="relative z-10 p-4 flex mb-4">
     <Profile />
+  </div>
+
+  <div class="relative p-4 flex flex-col flex-grow gap-4">
     {#if $girlsStore.data.length === 0}
       <GirlBuyPlaceholder />
     {:else}
-
       {#each $girlsStore.data as girl, index}
         <GirlCard {girl} {index} />
       {/each}
-
-      <nav class="grid grid-cols-2 gap-4">
-        <Button variant="secondary" class="!w-full gap-2">
-          <SquareCheckIcon /> Задания
-        </Button>
-
-        <Button variant="secondary" class="!w-full gap-2">
-          <span>
-            🤝
-          </span>
-          Друзья
-        </Button>
-
-        <Button variant="secondary" class="!w-full col-span-2 gap-3" on:click={gotoMarket}>
-          <StoreIcon />
-          Маркет
-        </Button>
-      </nav>
     {/if}
-
-
-    <!--
-    <footer class="w-full sticky bottom-10 flex flex-col justify-center gap-4">
-      <Button class="!w-full gap-2" on:click={onMatchClick}>
-        <SwordsIcon /> Играть
-      </Button>
-    </footer>
-    -->
-    <!-- <TaskList /> -->
   </div>
-</section>
 
-<Modal bind:show={modalMatchSearch.show}>
-  <MatchSearch on:cancel={closeSearchModal} />
-</Modal>
+  {#if $girlsStore.data.length > 0}
+    <nav class="flex justify-between gap-2 px-4 pb-8">
+      <Button variant="secondary" class="cgap-3 flex flex-col" on:click={gotoMarket}>
+        <StoreIcon />
+        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
+          Маркет
+        </span>
+      </Button>
+
+      <Button variant="secondary" class="gap-3 flex flex-col" on:click={gotoStore}>
+        <GiftIcon />
+        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
+          Боксы
+        </span>
+      </Button>
+
+      <Button variant="secondary" class="gap-3 flex flex-col" on:click={gotoHome}>
+        <HeartIcon />
+        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
+          Тянки
+        </span>
+      </Button>
+
+      <Button variant="secondary" class="gap-2 flex flex-col">
+        <span>
+          🤝
+        </span>
+        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
+          Друзья
+        </span>
+      </Button>
+
+      <Button variant="secondary" class="gap-2 flex flex-col">
+        <SquareCheckIcon />
+        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
+          Задания
+        </span>
+      </Button>
+    </nav>
+  {/if}
+</section>

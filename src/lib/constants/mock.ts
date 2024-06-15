@@ -20,7 +20,6 @@ export const MOCK_GIRL: IGirl = {
   slot_index: 1,
 };
 
-
 export const DEV_MODE_USER: IUser = {
   id: 1,
   username: 'HypePlayer',

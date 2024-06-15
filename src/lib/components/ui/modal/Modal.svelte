@@ -33,7 +33,7 @@
     <!-- eslint-disable-next-line svelte/valid-compile -->
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div
-      class="absolute inset-0 bg-black/30 backdrop-blur-md z-[31]"
+      class="absolute inset-0 bg-black/30 backdrop-blur-sm z-[31]"
       transition:fade={fadeConfig}
       role="button"
       tabindex="0"

@@ -40,13 +40,30 @@ body {
   }
 }
 
-.canvas-candy {
+.chan-token {
+  @apply not-italic;
+  text-shadow: 0 0 2px #031025;
+  @apply text-white font-extrabold text-sm;
+}
+
+.canvas {
   position: absolute;
+  pointer-events: none;
+}
+
+.canvas-token {
+  z-index: 2;
+  transition: opacity 0.3s ease,
+    scale 0.3s ease,
+    left 0.3s ease,
+    top 0.3s ease;
+}
+
+.canvas-candy {
   z-index: 1;
   transition: opacity 0.3s ease,
     scale 0.4s ease,
-    left 0.4s ease-in,
-    top 0.4s ease-in;
+    top 0.4s linear;
 }
 
 .h1 {

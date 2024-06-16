@@ -29,6 +29,7 @@
   const dispatcher = createEventDispatcher();
   let locked = false;
   let chanElement: HTMLSpanElement;
+  const animate = new Animate();
   const confettiConfig = {
     spread: 360,
     ticks: 50,
@@ -39,7 +40,6 @@
     scalar: 0.6,
     shapes: <Shape[]> ["square"],
   };
-  const animate = new Animate();
   const tweenConfig = {
     duration: 500,
     easing: quartOut,
@@ -48,7 +48,6 @@
 
   // Reactive
   $: $tokenTweened = girl.token_balance ?? 1;
-
 
   // Methods
   const showConfetti = async () => {
@@ -73,9 +72,22 @@
   }
 
   /**
-   * On girl click
+   * Candy feed animation
+   * @param count
    */
-  const onClick = () => {
+  const candyAnimation = (count = 1) => {
+    const startEl = document.getElementById(`candy-magnit`);
+    const targetEl = document.getElementById(`candy-magnit`);
+    if (targetEl && startEl) {
+      animate.candyFeed(startEl, targetEl, count)
+    }
+  }
+
+  /**
+   * On girl click
+   * @param event
+   */
+  const onClick = (event: MouseEvent ) => {
     try {
       if ($girlsStore.data[index]) {
         const { exp, exp_limit, feed_price, feed_multiplier, token_per_feed, level } = $girlsStore.data[index];
@@ -87,11 +99,9 @@
           $userStore.data.token += token_per_feed;
           $girlsStore.data[index].token_balance += token_per_feed;
 
-          const startEl = document.getElementById(`candy-magnit`);
-          const targetEl = document.getElementById(`candy-magnit`);
-          if (targetEl && startEl) {
-            animate.candyFly(startEl, targetEl, price)
-          }
+          const {  x, y } = event;
+          animate.tokenFly(x, y, token_per_feed)
+          // candyAnimation(price)
 
           if (exp < exp_limit) {
             $girlsStore.data[index].exp += 1;

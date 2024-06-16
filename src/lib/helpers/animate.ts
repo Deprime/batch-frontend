@@ -10,7 +10,7 @@ export default class Animate {
    * @param {HTMLElement} target - to where will fly end
    * @param {number} count - count of coins
    */
-  candyFly = (
+  candyFeed = (
       element: HTMLElement,
       target: HTMLElement,
       count: number,
@@ -28,7 +28,7 @@ export default class Animate {
 
       for (let i = 0; i < Math.floor(count); i++) {
         const icon = document.createElement('div');
-        icon.className = 'canvas-candy'
+        icon.className = 'canvas canvas-candy'
         icon.innerHTML = '<i class="candy candy--fly"></i>';
         const size = this.random(16, 16);
         icon.style.width = `${size}px`;
@@ -67,6 +67,45 @@ export default class Animate {
           });
         }, i * 100);
       }
+  };
+
+  /**
+   * Candy fly
+   */
+  tokenFly = (x: number, y: number, count: number) => {
+
+      const icon = document.createElement('div');
+      icon.className = 'canvas canvas-token'
+      icon.innerHTML = `<i class="chan-token">+${count}</i>`;
+      const size = this.random(16, 16);
+      icon.style.width = `${size}px`;
+
+      icon.style.top = `${y-15}px`;
+      icon.style.left = `${x-20}px`;
+      icon.style.scale = `0.5`;
+      icon.style.opacity = '0.5';
+      document.body.appendChild(icon);
+
+      const oddX = this.random(0, 10) >= 5;
+      const oddY = this.random(0, 10) >= 5;
+      let deltaX = this.random(60, 75);
+      deltaX = oddX ? deltaX * -1 : deltaX;
+      let deltaY = this.random(0, 85);
+      deltaY = oddY ? deltaY * -1 : deltaY;
+
+      window.requestAnimationFrame(() => {
+        icon.style.opacity = '1';
+        icon.style.scale = `1.5`;
+
+        setTimeout(() => {
+          icon.style.left = `${x + deltaX}px`;
+          icon.style.top = `${y + deltaY}px`;
+          setTimeout(() => {
+            icon.style.opacity = '0';
+            setTimeout(() => icon.parentElement.removeChild(icon), 1000);
+          }, 250);
+        }, 5);
+      });
   };
 
   /**

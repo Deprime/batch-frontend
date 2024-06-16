@@ -10,18 +10,34 @@
     HeartIcon,
     // SwordsIcon
   } from 'lucide-svelte';
-  import { Button, } from '$lib/components/ui';
-  import { MatchSearch, GirlCard, GirlBuyPlaceholder } from '$lib/components/game';
+  import { Button } from '$lib/components/ui';
+  import { GirlCard, GirlBuyPlaceholder, GirlModalNewLevel } from '$lib/components/game';
   import { Profile } from '$lib/components/widgets';
 
   // Stores
   import { girlsStore } from '$lib/stores';
 
+  // types
+	import type { IGirl } from '$lib/types/girl';
 
-
-
+  // Data
+  let activeGirl: IGirl|null = null;
+  let levelUp = false;
 
   // Methods
+  const onLevelUp = (e) => {
+    // const prize = e.detail.prize;
+    activeGirl = e.detail.girl;
+    levelUp = true;
+  }
+
+  const onLevelUpClose = () => {
+    setTimeout(() => {
+      levelUp = false;
+      activeGirl = null;
+    }, 1000)
+  }
+
   const gotoHome = () => {
     // goto('/')
   }
@@ -29,7 +45,6 @@
   const gotoStore = () => {
     // goto('/store')
   }
-
 
   const gotoMarket = () => {
     goto('/market')
@@ -49,12 +64,12 @@
     <Profile />
   </div>
 
-  <div class="relative p-4 flex flex-col flex-grow gap-4">
+  <div class="relative z-[2] p-4 flex flex-col flex-grow gap-4">
     {#if $girlsStore.data.length === 0}
       <GirlBuyPlaceholder />
     {:else}
       {#each $girlsStore.data as girl, index}
-        <GirlCard {girl} {index} />
+        <GirlCard {girl} {index} on:levelup={onLevelUp} />
       {/each}
     {/if}
   </div>
@@ -100,3 +115,9 @@
     </nav>
   {/if}
 </section>
+
+<GirlModalNewLevel
+  girl={activeGirl}
+  bind:show={levelUp}
+  on:close={onLevelUpClose}
+/>

@@ -11,7 +11,7 @@ export const MOCK_GIRL: IGirl = {
   exp: 0,
   exp_limit: 20,
   level: 1,
-  box_points: [5, 12],
+  box_points: [6, 12],
   feed_started_at: 1,
   feed_price: 1,
   feed_multiplier: 1,

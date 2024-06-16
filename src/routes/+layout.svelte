@@ -4,47 +4,61 @@
 
   // Components
   import { Loader } from '$lib/components/ui';
+
+  // Services
   import { delay } from '$lib/helpers/async';
-	import userStore from '$lib/stores/user';
-  import { DEV_MODE_USER } from '$lib/constants/mock';
+	import { appStore } from '$lib/stores';
+  import telegramService from "$lib/services/telegram";
+  import authService from '$lib/services/auth';
 
   // Data
   let loading = true;
-  let show = false;
+  let isTelegram = false;
 
-  const onAuth = async (mocked = false) => {
-    if (mocked && !$userStore.data?.candy) {
-      userStore.setData(DEV_MODE_USER);
-      await delay(550);
-      loading = false;
-      return;
-    }
+  /**
+   * Init telegram web app
+   */
+  const onAppInit = async () => {
+    const telegram = window.Telegram;
+    const initData = telegram.WebApp.initData;
+    isTelegram = initData.length > 0;
+    const engine = isTelegram ? 'telegram' : 'web';
+    appStore.setEgine(engine);
 
-    try {
-      userStore.setData(DEV_MODE_USER);
-      await delay(550);
+    if (isTelegram) {
+      await telegramService.preconfig(telegram)
+      await authService.telegram(telegram)
     }
-    catch (err) {
-      console.log(err)
+    else {
+      await authService.webapp()
     }
-    finally {
-      loading = false;
-    }
-  }
+  };
 
   onMount(async () => {
-    await delay(50);
-    show = true;
-    await onAuth(true);
+    try {
+      for (let i = 0; i < 1000; i++) {
+        if (window.Telegram) {
+          await onAppInit();
+          break;
+        }
+        await delay(400);
+      }
+    } catch(err) {
+      console.log(err)
+    } finally {
+      loading = false;
+    }
   });
 </script>
+
+<svelte:head>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</svelte:head>
 
 <main class="max-w-[640px] mx-auto h-full-dynamic overflow-y-scroll">
   {#if loading}
     <div class="w-full h-full flex justify-center items-center">
-      <div class="transition-all duration-1000 {!show ? 'scale-0 opacity-20' : 'scale-100 opacity-100'}">
-        <Loader size="xl" />
-      </div>
+      <Loader size="xl" />
     </div>
   {:else}
     <slot />

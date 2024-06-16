@@ -1,14 +1,19 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  import { tweened } from 'svelte/motion';
+  import { quartOut } from 'svelte/easing';
+
   import confetti from 'canvas-confetti';
   import type { Shape } from 'canvas-confetti';
 
   // Components
-  import CandyIcon from "$lib/components/icons/CandyIcon.svelte";
+  import { CandyIcon, TokenIcon } from "$lib/components/icons";
   import Image from "$lib/components/ui/image/Image.svelte";
   import GirlProgressBar from "./GirlProgressBar.svelte";
 
   // Helpers
   import Animate from '$lib/helpers/animate';
+  import { numberFormat } from '$lib/helpers/math';
 
   // Types
 	import type { IGirl } from "$lib/types/girl";
@@ -21,6 +26,7 @@
   export let index: number;
 
   // Data
+  const dispatcher = createEventDispatcher();
   let locked = false;
   let chanElement: HTMLSpanElement;
   const confettiConfig = {
@@ -32,10 +38,17 @@
     particleCount: 200,
     scalar: 0.6,
     shapes: <Shape[]> ["square"],
-    // flat: true,
-    // colors: ['FB1010', 'BA0000', 'BA2100']
   };
   const animate = new Animate();
+  const tweenConfig = {
+    duration: 500,
+    easing: quartOut,
+  }
+  let tokenTweened = tweened(girl.token_balance ?? 0, tweenConfig);
+
+  // Reactive
+  $: $tokenTweened = girl.token_balance ?? 1;
+
 
   // Methods
   const showConfetti = async () => {
@@ -45,25 +58,17 @@
       const y = (rect.top + (rect.height/2)) / document.body.clientHeight;
       const origin = { x, y };
 
-      confetti({
+      const cfg = {
         ...confettiConfig,
-        scalar: 0.4,
         origin
-      });
+      }
 
-      setTimeout(() => {
-        confetti({
-        ...confettiConfig,
-          origin
-        });
-      }, 400)
-
-      setTimeout(() => {
-        confetti({
-        ...confettiConfig,
-          origin
-        });
-      }, 800)
+      // confetti(cfg);
+      for (let i = 1; i <= 3; i++) {
+        setTimeout(() => {
+          confetti(cfg);
+        }, 450 * i)
+      }
     }
   }
 
@@ -92,18 +97,7 @@
             $girlsStore.data[index].exp += 1;
           }
           else {
-            locked = true;
-            setTimeout(() => {
-              locked = false;
-            }, 2000)
-
-            // Level up
-            showConfetti();
-            $girlsStore.data[index].level += 1;
-            $girlsStore.data[index].feed_price += 1;
-            $girlsStore.data[index].exp = 0;
-            $girlsStore.data[index].exp_limit = parseInt(exp_limit * 1.6);
-
+            onLevelUp(exp_limit);
           }
         }
         else {
@@ -115,12 +109,53 @@
       console.error(e);
     }
   }
+
+  /**
+   * On level up
+   */
+  const onLevelUp = (exp_limit: number) => {
+    locked = true;
+    setTimeout(() => {
+      locked = false;
+    }, 2000)
+
+    // Level up
+    showConfetti();
+    const newLevel = $girlsStore.data[index].level + 1;
+    $girlsStore.data[index].level = newLevel;
+    $girlsStore.data[index].feed_price += 1;
+    $girlsStore.data[index].exp = 0;
+
+    // Update exp limit
+    const newExpLimit = parseInt(exp_limit * 1.6);
+    $girlsStore.data[index].exp_limit = newExpLimit;
+
+    // Update box points
+    let step = 3;
+    if (newLevel > 2) {
+      step = 4;
+    }
+    if (newLevel > 5) {
+      step = 5;
+    }
+    if (newLevel >= 9) {
+      step = 6;
+    }
+    const partition = Math.floor(newExpLimit / step);
+    const boxPoints = Array(step - 1).fill(0).map((_, i) => {
+      return partition * (i + 1);
+    });
+    $girlsStore.data[index].box_points = [...boxPoints];
+
+    // Dispatch levelup event
+    dispatcher('levelup', { girl: $girlsStore.data[index], prize: 250 });
+  }
 </script>
 
 <div class="w-full flex flex-col justify-center gap-y-4 py-4">
-  <GirlProgressBar exp={girl.exp} max={girl.exp_limit} level={girl.level} />
+  <GirlProgressBar {girl} />
   <figure class="w-full flex justify-center items-center p2-4 relative z-[4]">
-    <button disabled={locked}  on:click={onClick} bind:this={chanElement} class="relative z-[2]">
+    <button disabled={locked} on:click={onClick} bind:this={chanElement} class="relative z-[2]">
       <Image
         cdn
         src={girl.image}
@@ -140,21 +175,25 @@
     </div>
   </figure>
 
-  <footer class="flex w-full gap-5 bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
-    <div class="flex flex-col items-center justify-center gap-1 w-1/3 py-2 px-4">
-      <p class="font-bold text-white flex justify-end items-center gap-2 w-full">
-        {girl.feed_price} <CandyIcon />
-      </p>
-      <!-- <p class="label-small">Feed cost</p> -->
+  <footer class="flex w-full bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
+    <div class="flex gap-2 items-center justify-center w-1/3 py-2 px-4">
+      <span class="font-bold text-white">
+        {girl.feed_price}
+      </span>
+      <CandyIcon />
     </div>
 
-    <div class="flex items-center gap-3 w-2/3 py-2.5 px-4">
-      <div class="flex flex-grow justify-center bg-blue-400 px-2 py-1 relative overflow-hidden rounded">
-        <div class="absolute inset-x-0 top-0 w-full h-1/2 z-[1] bg-white/30" />
-        <span class="text-sm font-extrabold uppercase text-blue-950 relative z-[2] ">
-          {girl.rarity}
-        </span>
-      </div>
+    <div class="flex gap-3 items-center justify-end w-1/3 py-2 pr-4 ">
+      <span class="font-bold text-yellow-200">
+        {numberFormat($tokenTweened, 2)}
+      </span>
+      <TokenIcon />
+    </div>
+
+    <div class="flex items-center justify-center gap-3 w-1/3 py-2.5 px-4">
+      <span class="text-xs font-extrabold uppercase text-sky-400 relative z-[2] ">
+        {girl.rarity}
+      </span>
     </div>
   </footer>
 </div>

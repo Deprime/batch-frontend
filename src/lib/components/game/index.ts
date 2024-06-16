@@ -6,3 +6,4 @@ export { default as MatchSearch } from './match-search/MatchSearch.svelte';
 export { default as UserBar } from './user-bar/UserBar.svelte';
 export { default as GirlCard } from './girl/GirlCard.svelte';
 export { default as GirlBuyPlaceholder } from './girl/GirlBuyPlaceholder.svelte';
+export { default as GirlModalNewLevel } from './girl/GirlModalNewLevel.svelte';

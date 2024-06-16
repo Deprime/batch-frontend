@@ -1,7 +1,7 @@
 import ky from 'ky';
 import { get } from 'svelte/store';
 // import userStore from '$lib/stores/user';
-import { settingsStore, userStore } from '$lib/stores';
+import { appStore, userStore } from '$lib/stores';
 import { API_HOST, IS_DEV_MODE } from './app';
 
 const httpHelper = {
@@ -67,18 +67,18 @@ const $http = ky.create({
         console.log('Token refresh try');
         try {
           const user = get(userStore);
-          const settings = get(settingsStore);
+          const app = get(appStore);
 
           const urlTelegram = `${API_HOST}/auth/telegram`;
-          const urlDebug = `${API_HOST}/debug/auth/username`;
-          const url = !IS_DEV_MODE && settings.engine === 'telegram'
+          const urlDebug = `${API_HOST}/auth/username`;
+          const url = !IS_DEV_MODE && app.engine === 'telegram'
             ? urlTelegram
             : urlDebug;
 
           const init_data = window.Telegram.WebApp.initData;
           const username = user?.data?.username ?? '';
 
-          const data = !IS_DEV_MODE && settings.engine === 'telegram'
+          const data = !IS_DEV_MODE && app.engine === 'telegram'
             ? { init_data }
             : { username };
 

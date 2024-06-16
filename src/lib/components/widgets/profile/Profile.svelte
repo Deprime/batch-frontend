@@ -6,7 +6,7 @@
   // Components
   import { Modal, Button } from '$lib/components/ui';
   // import { Gamepad2 } from 'lucide-svelte';
-  import { CandyIcon, GoldIcon, StarIcon } from '$lib/components/icons';
+  import { CandyIcon, TokenIcon, StarIcon } from '$lib/components/icons';
 
   // Stores
   import { userStore, girlsStore } from '$lib/stores';
@@ -46,7 +46,7 @@
   }
 
   const addCandies = () => {
-    if ($userStore.data?.candy) {
+    if ($userStore.data) {
       $userStore.data.candy += candies;
     }
   }
@@ -62,7 +62,7 @@
       userStore.setData(DEV_MODE_USER);
       girlsStore.clear();
 
-      await delay(750);
+      await delay(250);
       sure = false;
       modalSession.show = false;
     }
@@ -93,25 +93,25 @@
   </div>
   -->
 
-  <footer class="flex w-full gap-5 bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
-    <div class="flex items-center gap-3 w-full py-2.5 px-4">
-      <CandyIcon />
+  <footer class="flex w-full gap-3 bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
+    <div class="flex items-center justify-end gap-3 w-full py-2.5 pr-5">
       <span
-        class="text-amber-200 font-bold"
-        id="wallet-ton"
+        class="text-white font-bold"
+        id="wallet-candy"
       >
         {numberFormat($candyTweened, 0)}
       </span>
+      <CandyIcon />
     </div>
 
-    <div class="flex items-center gap-3 w-full py-2.5 px-4">
-      <GoldIcon />
+    <div class="flex items-center justify-end gap-3 w-full py-2.5 pr-5">
       <span
         class="text-yellow-200 font-bold"
-        id="wallet-gold"
+        id="wallet-token"
       >
         {numberFormat($tokenTweened)}
       </span>
+      <TokenIcon />
     </div>
 
     <div class="flex items-center gap-3 w-fit px-0.5">

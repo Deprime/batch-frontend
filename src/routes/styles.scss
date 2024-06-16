@@ -41,8 +41,8 @@ body {
 }
 
 .chan-token {
+  text-shadow: 0 2px 4px #031025, 0 0px 3px #031025;
   @apply not-italic;
-  text-shadow: 0 0 2px #031025;
   @apply text-white font-extrabold text-sm;
 }
 
@@ -63,7 +63,8 @@ body {
   z-index: 1;
   transition: opacity 0.3s ease,
     scale 0.4s ease,
-    top 0.4s linear;
+    left 0.4s ease-in,
+    top 0.4s ease-in;
 }
 
 .h1 {

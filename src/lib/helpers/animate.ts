@@ -38,7 +38,7 @@ export default class Animate {
 
         const baseDelta = this.random(70, 85);
         const deltaX = right ? (baseDelta + 15) * -1 : baseDelta;
-        const deltaY = this.random(0, 80);
+        const deltaY = this.random(0, 90);
 
         icon.style.top = `${deltaY + y}px`;
         icon.style.left = `${deltaX + x}px`;
@@ -48,11 +48,6 @@ export default class Animate {
 
         setTimeout(() => {
           window.requestAnimationFrame(() => {
-            // const deltaY = randomCenter ? this.random(-25, 50) : 0;
-            // const deltaX = randomCenter ? this.random(-100, 200) : 0;
-
-            // icon.style.top = `${y - ~~(size / 2) + deltaY}px`;
-            // icon.style.left = `${x - ~~(size / 2) + deltaX}px`;
             icon.style.opacity = '1';
 
             setTimeout(() => {
@@ -62,8 +57,8 @@ export default class Animate {
               setTimeout(() => {
                 icon.style.opacity = '0';
                 setTimeout(() => icon.parentElement.removeChild(icon), 1000);
-              }, 250);
-            }, 350);
+              }, 200);
+            }, 250);
           });
         }, i * 100);
       }
@@ -73,33 +68,27 @@ export default class Animate {
    * Candy fly
    */
   tokenFly = (x: number, y: number, count: number) => {
-
       const icon = document.createElement('div');
       icon.className = 'canvas canvas-token'
       icon.innerHTML = `<i class="chan-token">+${count}</i>`;
       const size = this.random(16, 16);
       icon.style.width = `${size}px`;
 
-      icon.style.top = `${y-15}px`;
-      icon.style.left = `${x-20}px`;
+      icon.style.top = `${y-20}px`;
+      icon.style.left = `${x-40}px`;
       icon.style.scale = `0.5`;
       icon.style.opacity = '0.5';
       document.body.appendChild(icon);
 
-      const oddX = this.random(0, 10) >= 5;
-      const oddY = this.random(0, 10) >= 5;
-      let deltaX = this.random(60, 75);
-      deltaX = oddX ? deltaX * -1 : deltaX;
-      let deltaY = this.random(0, 85);
-      deltaY = oddY ? deltaY * -1 : deltaY;
+      const deltaY = 85;
 
       window.requestAnimationFrame(() => {
         icon.style.opacity = '1';
         icon.style.scale = `1.5`;
 
         setTimeout(() => {
-          icon.style.left = `${x + deltaX}px`;
-          icon.style.top = `${y + deltaY}px`;
+          icon.style.left = `${x -40}px`;
+          icon.style.top = `${y - deltaY}px`;
           setTimeout(() => {
             icon.style.opacity = '0';
             setTimeout(() => icon.parentElement.removeChild(icon), 1000);

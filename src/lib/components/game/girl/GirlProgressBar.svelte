@@ -77,7 +77,7 @@
   </div>
   <div class="rounded-md bg-gray-300/20 px-4 py-2 -ml-2 text-white font-medium w-full h-4 flex items-center relative">
     <div
-      class="rounded-r-md absolute inset-0 left-2 z-0 transition-all duration-500 overflow-hidden"
+      class="rounded-r-md absolute inset-0 z-0 transition-all duration-500 overflow-hidden"
       class:bg-amber-500={state === 5}
       class:bg-amber-400={state === 4}
       class:bg-yellow-400={state === 3}
@@ -90,11 +90,11 @@
 
     {#each boxProgress as box}
       <div
-        class="absolute top-[-3px] z-[3] ml-[-4px] transition-all duration-700 {box.done ? "opacity-0 scale-[2.5]" : ""}"
+        class="absolute top-[-4px] z-[3] ml-[-6px] transition-all duration-700 {box.done ? "opacity-0 scale-[3]" : ""}"
         style="left: {box.padding}%"
       >
         <span
-          class="flex justify-center items-center rounded-full size-5 bg-amber-400 text-sm text-black/85 font-extrabold"
+          class="flex justify-center items-center rounded-full size-6 bg-amber-400 text-sm text-black/85 font-extrabold"
           id="girl-{girl.id}-box-progress-{box.exp}"
         >
           ?

@@ -13,7 +13,7 @@
 
   // Helpers
   import Animate from '$lib/helpers/animate';
-  import { numberFormat } from '$lib/helpers/math';
+  import { numberFormat, fibo } from '$lib/helpers/math';
 
   // Types
 	import type { IGirl } from "$lib/types/girl";
@@ -99,9 +99,9 @@
           $userStore.data.token += token_per_feed;
           $girlsStore.data[index].token_balance += token_per_feed;
 
-          const {  x, y } = event;
+          const { x, y } = event;
           animate.tokenFly(x, y, token_per_feed)
-          // candyAnimation(price)
+          candyAnimation(price)
 
           if (exp < exp_limit) {
             $girlsStore.data[index].exp += 1;
@@ -131,14 +131,19 @@
 
     // Level up
     showConfetti();
-    const newLevel = $girlsStore.data[index].level + 1;
-    $girlsStore.data[index].level = newLevel;
-    $girlsStore.data[index].feed_price += 1;
-    $girlsStore.data[index].exp = 0;
+
+    const $$girl = {...$girlsStore.data[index]};
+    const newLevel = $$girl.level + 1;
+    $$girl.level = newLevel;
+    $$girl.feed_price += 1;
+
+    const newTokenPerFeed = parseFloat(numberFormat($$girl.token_per_feed + (fibo(newLevel) * 0.33)));
+    $$girl.token_per_feed = newTokenPerFeed;
+    $$girl.exp = 0;
 
     // Update exp limit
     const newExpLimit = parseInt(exp_limit * 1.6);
-    $girlsStore.data[index].exp_limit = newExpLimit;
+    $$girl.exp_limit = newExpLimit;
 
     // Update box points
     let step = 3;
@@ -155,10 +160,12 @@
     const boxPoints = Array(step - 1).fill(0).map((_, i) => {
       return partition * (i + 1);
     });
-    $girlsStore.data[index].box_points = [...boxPoints];
+    $$girl.box_points = [...boxPoints];
+
+    $girlsStore.data[index] = {...$$girl};
 
     // Dispatch levelup event
-    dispatcher('levelup', { girl: $girlsStore.data[index], prize: 250 });
+    dispatcher('levelup', { girl: $$girl, prize: 250 });
   }
 </script>
 
@@ -169,11 +176,11 @@
       <Image
         cdn
         src={girl.image}
-        class="h-72 {locked ? '' : 'active:translate-y-1.5 active:scale-90 transition-all duration-[40ms]'} "
+        class="h-72 {locked ? '' : 'active:translate-y-1.5 active:scale-[0.85] transition-all duration-[40ms]'} "
       />
     </button>
 
-    <span class="absolute size-5 z-[1]" id="candy-magnit" />
+    <span class="absolute size-5 z-[2]" id="candy-magnit" />
 
     <div class="flex flex-col  absolute bottom-0 left-0">
       <p class="font-bold text-white">
@@ -187,21 +194,21 @@
 
   <footer class="flex w-full bg-white/10 rounded-lg border-t border-t-black/40 divide-x divide-black/40">
     <div class="flex gap-2 items-center justify-center w-1/3 py-2 px-4">
-      <span class="font-bold text-white">
+      <span class="font-bold text-sm text-white">
         {girl.feed_price}
       </span>
       <CandyIcon />
     </div>
 
-    <div class="flex gap-3 items-center justify-end w-1/3 py-2 pr-4 ">
-      <span class="font-bold text-yellow-200">
+    <div class="flex gap-2 items-center justify-end w-1/3 py-2 pr-3 ">
+      <span class="font-bold text-sm text-yellow-200">
         {numberFormat($tokenTweened, 2)}
       </span>
       <TokenIcon />
     </div>
 
     <div class="flex items-center justify-center gap-3 w-1/3 py-2.5 px-4">
-      <span class="text-xs font-extrabold uppercase text-sky-400 relative z-[2] ">
+      <span class="text-xs font-extrabold uppercase text-sky-400 relative z-[2]">
         {girl.rarity}
       </span>
     </div>

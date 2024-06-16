@@ -28,7 +28,7 @@
     show: false,
 
   };
-  const candies = 100;
+  const candies = 1000;
   const stars = 100;
   let sure = false;
 
@@ -131,7 +131,7 @@
   <div class="w-full flex flex-col gap-4">
 
     <Button block variant="ghost" on:click={addCandies}>
-      Add {stars} <CandyIcon class="ml-2" />
+      Add {candies} <CandyIcon class="ml-2" />
     </Button>
     <Button block  variant="ghost" class="mb-8" on:click={addStars}>
       Add {stars} <StarIcon class="ml-2" />

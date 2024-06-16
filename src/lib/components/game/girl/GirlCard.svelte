@@ -199,7 +199,7 @@
       <Image
         cdn
         src={girl.image}
-        class="h-72 absolute z-[2] transition-all duration-[40ms] {!locked && clicked ? 'translate-y-1.5 scale-[0.85]' : ''} "
+        class="h-72 absolute z-[2] transition-all duration-[50ms] {!locked && clicked ? 'translate-y-0.5 scale-[0.90]' : ''} "
       />
 
       <span class="absolute size-5 z-[2]" id="candy-magnit" />

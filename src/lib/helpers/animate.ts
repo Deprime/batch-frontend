@@ -33,7 +33,6 @@ export default class Animate {
         const size = this.random(16, 16);
         icon.style.width = `${size}px`;
         icon.style.height = `${size}px`;
-
         right = !right;
 
         const baseDelta = this.random(70, 85);
@@ -67,7 +66,6 @@ export default class Animate {
   /**
    * Candy fly
    */
-  // tokenFly = (x: number, y: number, count: number) => {
   tokenFly = (x: number, y: number, girlId: number, count: number) => {
       const btn = document.getElementById(`girl-${girlId}-clicker`);
       if (!btn) return;

@@ -5,7 +5,6 @@
   // Props
   export let show = false;
   export let closable = false;
-  export let bottomGlow: 'purple' = 'none'
 
   // Data
   const fadeConfig = {

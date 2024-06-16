@@ -28,6 +28,7 @@
   // Data
   const dispatcher = createEventDispatcher();
   let locked = false;
+  let clicked = false;
   let chanElement: HTMLSpanElement;
   const animate = new Animate();
   const confettiConfig = {
@@ -87,21 +88,30 @@
    * On girl click
    * @param event
    */
-  const onClick = (event: MouseEvent ) => {
+  const onClick = (event: PointerEvent ) => {
     try {
       if ($girlsStore.data[index]) {
-        const { exp, exp_limit, feed_price, feed_multiplier, token_per_feed, level } = $girlsStore.data[index];
+        const {
+          exp,
+          exp_limit,
+          // feed_price,
+          // feed_multiplier,
+          token_per_feed,
+          level
+        } = $girlsStore.data[index];
         // const price = feed_price + (level - 1);
         const price = level;
 
         if ($userStore.data && $userStore.data?.candy >= price) {
+          clicked = true;
           $userStore.data.candy -= price;
           $userStore.data.token += token_per_feed;
           $girlsStore.data[index].token_balance += token_per_feed;
 
-          const { x, y } = event;
-          animate.tokenFly(x, y, token_per_feed)
-          candyAnimation(price)
+          const x = event.layerX;
+          const y = event.layerY;
+          animate.tokenFly(x, y, girl.id, token_per_feed)
+          candyAnimation(price);
 
           if (exp < exp_limit) {
             $girlsStore.data[index].exp += 1;
@@ -109,6 +119,10 @@
           else {
             onLevelUp(exp_limit);
           }
+
+          setTimeout(() => {
+            clicked = false;
+          }, 150)
         }
         else {
           console.log('Not enough candy');
@@ -172,17 +186,27 @@
 <div class="w-full flex flex-col justify-center gap-y-4 py-4">
   <GirlProgressBar {girl} />
   <figure class="w-full flex justify-center items-center p2-4 relative z-[4]">
-    <button disabled={locked} on:click={onClick} bind:this={chanElement} class="relative z-[2]">
+    <div
+      class="flex justify-center items-center relative"
+    >
+      <button
+        disabled={locked}
+        on:click={onClick}
+        bind:this={chanElement}
+        class="relative flex justify-center items-center z-[4] size-72"
+      >
+      </button>
       <Image
         cdn
         src={girl.image}
-        class="h-72 {locked ? '' : 'active:translate-y-1.5 active:scale-[0.85] transition-all duration-[40ms]'} "
+        class="h-72 absolute z-[2] transition-all duration-[40ms] {!locked && clicked ? 'translate-y-1.5 scale-[0.85]' : ''} "
       />
-    </button>
 
-    <span class="absolute size-5 z-[2]" id="candy-magnit" />
+      <span class="absolute size-5 z-[2]" id="candy-magnit" />
+      <div class="absolute z-[3] size-72" id="girl-{girl.id}-clicker" />
+    </div>
 
-    <div class="flex flex-col  absolute bottom-0 left-0">
+    <div class="flex flex-col absolute bottom-0 left-0">
       <p class="font-bold text-white">
         {girl.name}
       </p>

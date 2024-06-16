@@ -75,7 +75,7 @@
       {girl.level}
     </span>
   </div>
-  <div class="rounded-md bg-gray-300/20 px-4 py-2 -ml-2 text-white font-medium w-full h-4 flex items-center relative">
+  <div class="rounded-r-md bg-gray-300/20 px-4 py-2  text-white font-medium w-full h-4 flex items-center relative">
     <div
       class="rounded-r-md absolute inset-0 z-0 transition-all duration-500 overflow-hidden"
       class:bg-amber-500={state === 5}
@@ -90,7 +90,7 @@
 
     {#each boxProgress as box}
       <div
-        class="absolute top-[-4px] z-[3] ml-[-6px] transition-all duration-700 {box.done ? "opacity-0 scale-[3]" : ""}"
+        class="absolute top-[-4px] z-[3] ml-[-10px] transition-all duration-700 {box.done ? "opacity-0 scale-[3]" : ""}"
         style="left: {box.padding}%"
       >
         <span

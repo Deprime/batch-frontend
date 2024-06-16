@@ -67,18 +67,22 @@ export default class Animate {
   /**
    * Candy fly
    */
-  tokenFly = (x: number, y: number, count: number) => {
+  // tokenFly = (x: number, y: number, count: number) => {
+  tokenFly = (x: number, y: number, girlId: number, count: number) => {
+      const btn = document.getElementById(`girl-${girlId}-clicker`);
+      if (!btn) return;
+
       const icon = document.createElement('div');
       icon.className = 'canvas canvas-token'
       icon.innerHTML = `<i class="chan-token">+${count}</i>`;
       const size = this.random(16, 16);
       icon.style.width = `${size}px`;
 
-      icon.style.top = `${y-20}px`;
-      icon.style.left = `${x-40}px`;
+      icon.style.top = `${y-30}px`;
+      icon.style.left = `${x-10}px`;
       icon.style.scale = `0.5`;
       icon.style.opacity = '0.5';
-      document.body.appendChild(icon);
+      btn.appendChild(icon);
 
       const deltaY = 85;
 
@@ -87,7 +91,7 @@ export default class Animate {
         icon.style.scale = `1.5`;
 
         setTimeout(() => {
-          icon.style.left = `${x -40}px`;
+          icon.style.left = `${x -15}px`;
           icon.style.top = `${y - deltaY}px`;
           setTimeout(() => {
             icon.style.opacity = '0';

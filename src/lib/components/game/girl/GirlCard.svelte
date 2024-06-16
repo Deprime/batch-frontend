@@ -122,7 +122,7 @@
 
           setTimeout(() => {
             clicked = false;
-          }, 150)
+          }, 50)
         }
         else {
           console.log('Not enough candy');

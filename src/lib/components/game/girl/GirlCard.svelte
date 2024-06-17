@@ -29,7 +29,6 @@
   const dispatcher = createEventDispatcher();
   let locked = false;
   let clicked = false;
-  let lastMove = null;
   let chanElement: HTMLSpanElement;
   const animate = new Animate();
   const confettiConfig = {
@@ -85,10 +84,6 @@
     }
   }
 
-  const catchEvent = (event) => {
-    lastMove = event;
-  }
-
   /**
    * On girl click
    * @param event
@@ -113,14 +108,9 @@
           $userStore.data.token += token_per_feed;
           $girlsStore.data[index].token_balance += token_per_feed;
 
-          if (lastMove?.touches?.length > 0) {
-            for (let i = 0; i < lastMove.touches.length; i++) {
-              const el = lastMove.touches[i]
-              const x = el.clientX - 65;
-              const y = el.clientY - 160;
-              animate.tokenFly(x, y, girl.id, token_per_feed)
-            }
-          }
+          const x = event.layerX;
+          const y = event.layerY;
+          animate.tokenFly(x, y, girl.id, token_per_feed)
           candyAnimation(price);
 
           if (exp < exp_limit) {
@@ -201,9 +191,7 @@
     >
       <button
         disabled={locked}
-        on:touchstart={catchEvent}
-        on:touchmove={catchEvent}
-        on:touchend={onTap}
+        on:click={onTap}
         bind:this={chanElement}
         class="relative flex justify-center items-center z-[4] size-72"
       >

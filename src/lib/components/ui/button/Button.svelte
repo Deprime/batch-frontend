@@ -74,7 +74,7 @@
     &--variant {
       &-secondary {
         @apply text-white;
-        @apply bg-white/10;
+        @apply bg-[#9EB0F1];
         @apply border border-white/10;
       }
 

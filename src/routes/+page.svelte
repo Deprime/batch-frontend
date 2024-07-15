@@ -11,8 +11,10 @@
     // SwordsIcon
   } from 'lucide-svelte';
   import { Button } from '$lib/components/ui';
+  import { Navigation } from '$lib/components/structure';
   import { GirlCard, GirlBuyPlaceholder, GirlModalNewLevel } from '$lib/components/game';
   import { Profile } from '$lib/components/widgets';
+  import Onion from '$lib/components/game/girl/Onion.svelte';
 
   // Stores
   import { girlsStore } from '$lib/stores';
@@ -60,15 +62,15 @@
   <div class="size-0 absolute z-[1] top-10 right-10 glow-purple" />
   <div class="size-0 absolute z-[1] bottom-32 left-10 glow-blue" />
 
-  <div class="relative z-10 p-4 flex mb-4">
+  <!-- <div class="relative z-10 p-4 flex mb-4">
     <Profile />
-  </div>
+  </div> -->
 
-  <div class="relative z-[2] p-4 flex flex-col flex-grow gap-4">
+  <div class="relative z-[2] p-4 flex flex-col flex-grow gap-4 mt-20">
     {#if $girlsStore.data.length === 0}
       <GirlBuyPlaceholder />
     {:else}
-      <GirlCard girl={$girlsStore.data[0]} index={0} on:levelup={onLevelUp} />
+      <Onion girl={$girlsStore.data[0]} index={0} on:levelup={onLevelUp} />
 
       <!--
       {#each $girlsStore.data as girl, index}
@@ -79,44 +81,7 @@
   </div>
 
   {#if $girlsStore.data.length > 0}
-    <nav class="flex justify-between gap-2 px-4 pb-8">
-      <Button variant="secondary" class="cgap-3 flex flex-col" on:click={gotoMarket}>
-        <StoreIcon />
-        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
-          Маркет
-        </span>
-      </Button>
-
-      <Button variant="secondary" class="gap-3 flex flex-col" on:click={gotoStore}>
-        <GiftIcon />
-        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
-          Боксы
-        </span>
-      </Button>
-
-      <Button variant="secondary" class="gap-3 flex flex-col" on:click={gotoHome}>
-        <HeartIcon />
-        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
-          Тянки
-        </span>
-      </Button>
-
-      <Button variant="secondary" class="gap-2 flex flex-col">
-        <span>
-          🤝
-        </span>
-        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
-          Друзья
-        </span>
-      </Button>
-
-      <Button variant="secondary" class="gap-2 flex flex-col">
-        <SquareCheckIcon />
-        <span class="text-[11px] leading-3 font-normal absolute top-full pt-1">
-          Задания
-        </span>
-      </Button>
-    </nav>
+    <Navigation />
   {/if}
 </section>
 

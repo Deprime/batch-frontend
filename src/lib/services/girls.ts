@@ -9,9 +9,8 @@ const girlService = {
   /**
    * Get app config
    */
-  buyyGirl: async (mocked = true) => {
+  buyGirl: async (mocked = true) => {
     if (mocked) {
-
       const store = get(girlsStore)
       const id = store.data.length + 1;
       girlsStore.addGirl({ ...MOCK_GIRL, id } as IGirl);

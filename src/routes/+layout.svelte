@@ -1,13 +1,14 @@
 <script>
-	import './styles.scss';
+	import '../app.scss';
   import { onMount } from 'svelte';
 
   // Components
   import { Loader } from '$lib/components/ui';
+  import { FirstLogin } from '$lib/components/widgets';
 
   // Services
   import { delay } from '$lib/helpers/async';
-	import { appStore } from '$lib/stores';
+	import { appStore, userStore } from '$lib/stores';
   import telegramService from "$lib/services/telegram";
   import authService from '$lib/services/auth';
 
@@ -61,6 +62,17 @@
       <Loader size="xl" />
     </div>
   {:else}
-    <slot />
+
+    {#if $userStore.data}
+      {#if $userStore.data.last_played_at}
+        <slot />
+      {:else}
+        <FirstLogin />
+      {/if}
+    {:else}
+      <div>
+        Authorization error
+      </div>
+    {/if}
   {/if}
 </main>

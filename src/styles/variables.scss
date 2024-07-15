@@ -1,0 +1,10 @@
+:root {
+	--font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+  --color-text: #fff;
+	font-family: var(--font-body);
+	color: var(--color-text);
+  --primary-bg: #031025;
+  --green-base: #00ff92;
+  --yellow-base: #ffe500;
+}

@@ -47,6 +47,7 @@
 		"@types/telegram-web-app": "^7.1.0",
 		"canvas-confetti": "^1.9.2",
 		"dayjs": "^1.11.10",
+		"embla-carousel-svelte": "^8.1.5",
 		"ky": "^1.2.2",
 		"lucide-svelte": "^0.364.0",
 		"svelte-local-storage-store": "^0.6.4",

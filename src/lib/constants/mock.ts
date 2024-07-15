@@ -22,6 +22,7 @@ export const MOCK_GIRL: IGirl = {
 
 export const DEV_MODE_USER: IUser = {
   id: 1,
+  last_played_at: null,
   username: 'HypePlayer',
   language_code: 'ru',
   state: 'none',

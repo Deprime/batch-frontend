@@ -38,15 +38,12 @@ const authService = {
     const synthDelay = 850;
     const store = get(userStore);
     // If no name -> mocked auth
-    if (username && store.data?.username === username) {
-      await delay(synthDelay);
-      return;
-    }
-    else {
+
+    await delay(synthDelay);
+    if (!store.data?.username) {
       userStore.setData(DEV_MODE_USER);
-      await delay(synthDelay);
-      return;
     }
+    return;
 
     // Web app auth
     // userStore.setLoading(true)

@@ -56,7 +56,7 @@
 	<meta name="description" content="Game session" />
 </svelte:head>
 
-<section class="h-full-dynamic w-full flex flex-col justify-between relative ">
+<section class="h-full-dynamic w-full flex flex-col justify-between relative">
   <div class="size-0 absolute z-[1] top-10 right-10 glow-purple" />
   <div class="size-0 absolute z-[1] bottom-32 left-10 glow-blue" />
 
@@ -68,9 +68,13 @@
     {#if $girlsStore.data.length === 0}
       <GirlBuyPlaceholder />
     {:else}
+      <GirlCard girl={$girlsStore.data[0]} index={0} on:levelup={onLevelUp} />
+
+      <!--
       {#each $girlsStore.data as girl, index}
         <GirlCard {girl} {index} on:levelup={onLevelUp} />
       {/each}
+      -->
     {/if}
   </div>
 

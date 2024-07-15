@@ -21,10 +21,10 @@
         @apply size-8 border-[4px];
       }
       &-lg {
-        @apply size-10 border-[6px];
+        @apply size-10 border-[5px];
       }
       &-xl {
-        @apply size-16 border-[7px];
+        @apply size-16 border-[5px];
       }
     }
   }

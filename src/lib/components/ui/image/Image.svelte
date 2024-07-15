@@ -15,7 +15,6 @@
   };
 </script>
 
-
 <img
   {...$$restProps}
   {alt}

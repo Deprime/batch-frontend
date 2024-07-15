@@ -1,7 +1,7 @@
 import $http from '$lib/config/http';
 // import type { IApiResponse } from '$lib/types/common';
 
-const PREFIX = 'auth';
+const PREFIX = '/api/v1/auth';
 
 const authApi = {
   /**
@@ -9,7 +9,7 @@ const authApi = {
    * @param {String} init_data
    */
   telegram: (init_data: string) => {
-    const url = `${PREFIX}/telegram`;
+    const url = `${PREFIX}/login`;
     const json = {
       data: { init_data },
     };

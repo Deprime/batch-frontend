@@ -1,0 +1,36 @@
+.candy {
+  @apply size-5 inline-block;
+  @apply bg-no-repeat bg-cover bg-center;
+  @apply bg-[url("/images/candy.png")];
+
+  &--fly {
+    @apply absolute;
+  }
+}
+
+.chan-token {
+  text-shadow: 0 2px 4px #031025, 0 0px 3px #031025;
+  @apply not-italic;
+  @apply text-white font-extrabold text-sm;
+}
+
+.canvas {
+  position: absolute;
+  pointer-events: none;
+}
+
+.canvas-token {
+  z-index: 2;
+  transition: opacity 0.3s ease,
+    scale 0.3s ease,
+    left 0.3s ease,
+    top 0.3s ease;
+}
+
+.canvas-candy {
+  z-index: 1;
+  transition: opacity 0.3s ease,
+    scale 0.4s ease,
+    left 0.4s ease-in,
+    top 0.4s ease-in;
+}

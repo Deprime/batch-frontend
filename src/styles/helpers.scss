@@ -1,0 +1,32 @@
+.primary-bg {
+  @apply bg-[var(--primary-bg)];
+}
+
+.h-full-dynamic {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.glow-purple {
+  opacity: 0.4;
+  box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.3),
+  0 0 200px 60px rgba(138, 34, 202, 0.4),
+  0 0 300px 120px rgba(138, 34, 202,  0.5),
+  0 0 450px 240px rgba(138, 34, 202,  0.6);
+}
+
+.glow-blue {
+  opacity: 0.4;
+  box-shadow: 0 0 100px 30px rgba(24, 56, 197, 0.2),
+  0 0 200px 60px rgba(24, 56, 197, 0.3),
+  0 0 300px 120px rgba(24, 56, 197,  0.4),
+  0 0 450px 240px rgba(24, 56, 197,  0.5);
+}
+
+.glow-yellow {
+  opacity: 0.4;
+  box-shadow: 0 0 75px 25px rgba(255, 218, 10, 0.2),
+  0 0 120px 40px rgba(255, 218, 10, 0.3),
+  0 0 150px 65px rgba(255, 218, 10,  0.4),
+  0 0 180px 90px rgba(255, 218, 10,  0.5);
+}

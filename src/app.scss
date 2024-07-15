@@ -1,0 +1,11 @@
+@import '@fontsource/fira-mono';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./styles/variables.scss";
+@import "./styles/typography.scss";
+@import "./styles/helpers.scss";
+@import "./styles/embla.scss";
+@import "./styles/main.scss";
+@import "./styles/tokens.scss";

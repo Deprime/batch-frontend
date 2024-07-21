@@ -9,7 +9,7 @@
 
   // Services
   import { delay } from '$lib/helpers/async';
-	import { appStore, userStore } from '$lib/stores';
+	import { appStore, userStore, girlsStore } from '$lib/stores';
   import telegramService from "$lib/services/telegram";
   import authService from '$lib/services/auth';
 
@@ -35,6 +35,13 @@
       await authService.webapp()
     }
   };
+
+  const onClearState = () => {
+    appStore.clear();
+    userStore.clear();
+    girlsStore.clear();
+    location.reload();
+  }
 
   onMount(async () => {
     try {
@@ -66,6 +73,9 @@
 
     {#if $userStore.data}
       {#if $userStore.data.last_played_at}
+        <button on:click={onClearState} class="absolute top-1 right-1 text-xs bg-slate-600/50 px-1 rounded">
+          Clear state
+        </button>
         <slot />
         <Navigation />
       {:else}

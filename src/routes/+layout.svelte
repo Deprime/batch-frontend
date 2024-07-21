@@ -36,14 +36,11 @@
     }
   };
 
-  const onClearState = () => {
+  onMount(async () => {
     girlsStore.clear();
     appStore.clear();
     userStore.clear();
-    location.reload();
-  }
 
-  onMount(async () => {
     try {
       for (let i = 0; i < 1000; i++) {
         if (window.Telegram) {
@@ -73,9 +70,6 @@
 
     {#if $userStore.data}
       {#if $userStore.data.last_played_at}
-        <button on:click={onClearState} class="absolute top-1 right-1 text-xs bg-slate-600/50 px-1 rounded">
-          Clear state
-        </button>
         <slot />
         <Navigation />
       {:else}

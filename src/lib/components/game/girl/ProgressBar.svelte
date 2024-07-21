@@ -43,7 +43,7 @@
     getProgressWidth($$exp);
 
     boxProgress = girl.box_points.map((drop: IDrop): IBox => {
-      const padding = round((drop?.exp ?? 1 * 100) / girl.exp_limit)
+      const padding = round((drop?.exp * 100) / girl.exp_limit)
       const done = $$exp >= drop?.exp;
       return { drop, padding, done }
     });

@@ -43,8 +43,8 @@
     getProgressWidth($$exp);
 
     boxProgress = girl.box_points.map((drop: IDrop): IBox => {
-      const padding = round((drop.exp * 100) / girl.exp_limit)
-      const done = $$exp >= drop.exp;
+      const padding = round((drop?.exp ?? 1 * 100) / girl.exp_limit)
+      const done = $$exp >= drop?.exp;
       return { drop, padding, done }
     });
   }
@@ -70,11 +70,11 @@
               transition-all duration-700
               {box.done ? "bg-coral-base" : "bg-purple-dark"}
             "
-            id="girl-{girl.id}-box-progress-{box.drop.exp}"
+            id="girl-{girl.id}-box-progress-{box.drop?.exp}"
           >
             <img
-              src={`/images/gifts/icon-${box.drop.reward}.png`}
-              alt={box.drop.reward}
+              src={`/images/gifts/icon-${box.drop?.reward}.png`}
+              alt={box.drop?.reward}
               class="size-8"
             />
           </span>

@@ -22,7 +22,7 @@ export const MOCK_GIRL: IGirl = {
   feed_price: 1,
   feed_multiplier: 1,
   token_balance: 0,
-  token_per_feed: 0.04,
+  token_per_feed: 1,
   slot_index: 1,
 };
 

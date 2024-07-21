@@ -84,9 +84,9 @@
   </div>
 
   <div class="w-full flex flex-col justify-center text-center">
-    <span>{girl.exp} / {girl.exp_limit}</span>
+    <p class="text-2xl">{girl.exp} / {girl.exp_limit}</p>
     <p>
-      Осталось до участия в турнире
+      До участия в турнире {girl.exp_limit} кликов
     </p>
   </div>
 </div>

@@ -37,9 +37,9 @@
   };
 
   const onClearState = () => {
+    girlsStore.clear();
     appStore.clear();
     userStore.clear();
-    girlsStore.clear();
     location.reload();
   }
 

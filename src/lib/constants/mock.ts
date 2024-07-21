@@ -9,7 +9,7 @@ export const MOCK_GIRL: IGirl = {
   rarity: "Uncommon",
   state: "feed",
   exp: 0,
-  exp_limit: 1000,
+  exp_limit: 10_000,
   level: 1,
   box_points: [
     {exp: 200, reward: 'boost'},

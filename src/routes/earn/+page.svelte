@@ -8,7 +8,7 @@
   </a>
 
   <h3 class="h3 text-center w-full pr-8">
-    Рынок
+    Есть чо по мелочи заработать?
   </h3>
 </header>
 

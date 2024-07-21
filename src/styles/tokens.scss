@@ -12,6 +12,7 @@
   text-shadow: 0 2px 4px #03102598, 0 0px 3px #03102573;
   @apply not-italic;
   @apply text-white font-extrabold text-sm;
+  pointer-events: none;
 }
 
 .canvas {

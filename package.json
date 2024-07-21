@@ -50,9 +50,7 @@
 		"embla-carousel-svelte": "^8.1.5",
 		"ky": "^1.2.2",
 		"lucide-svelte": "^0.408.0",
-		"svelte-local-storage-store": "^0.6.4",
 		"svelte-persisted-store": "^0.11.0",
-		"tailwind-merge": "^2.3.0",
-		"tonweb": "^0.0.64"
+		"tailwind-merge": "^2.3.0"
 	}
 }

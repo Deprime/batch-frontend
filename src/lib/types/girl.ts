@@ -11,6 +11,11 @@ export interface IUser {
   box_slots: number,
 }
 
+export interface IDrop {
+  exp: number,
+  reward: "boost" | "money" | "gift",
+}
+
 export type IGirl = {
   id: number,
   user_id: number,
@@ -21,7 +26,7 @@ export type IGirl = {
   exp: number,
   exp_limit: number,
   level: number,
-  box_points: number[],
+  box_points: IDrop[],
   feed_started_at: number,
   feed_price: number,
   feed_multiplier: number,

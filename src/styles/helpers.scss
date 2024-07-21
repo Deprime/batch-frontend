@@ -1,3 +1,20 @@
+/**
+ * Background color custom
+ */
+// Coral
+.bg-coral-base {
+  @apply bg-[var(--coral-base)];
+}
+
+// Purple
+.bg-purple-dark {
+  @apply bg-[var(--purple-dark)];
+}
+.bg-purple-darkest {
+  @apply bg-[var(--purple-darkest)];
+}
+
+
 .primary-bg {
   @apply bg-[var(--primary-bg)];
 }
@@ -8,11 +25,11 @@
 }
 
 .glow-purple {
-  opacity: 0.4;
-  box-shadow: 0 0 100px 30px rgba(138, 34, 202, 0.3),
-  0 0 200px 60px rgba(138, 34, 202, 0.4),
-  0 0 300px 120px rgba(138, 34, 202,  0.5),
-  0 0 450px 240px rgba(138, 34, 202,  0.6);
+  opacity: 0.3;
+  box-shadow: 0 0 70px 30px rgba(138, 34, 202, 0.3),
+  0 0 180px 60px rgba(138, 34, 202, 0.4),
+  0 0 250px 120px rgba(138, 34, 202,  0.5),
+  0 0 300px 200px rgba(138, 34, 202,  0.6);
 }
 
 .glow-blue {

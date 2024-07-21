@@ -5,6 +5,7 @@
   // Components
   import { Loader } from '$lib/components/ui';
   import { FirstLogin } from '$lib/components/widgets';
+  import { Navigation } from '$lib/components/structure';
 
   // Services
   import { delay } from '$lib/helpers/async';
@@ -56,7 +57,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </svelte:head>
 
-<main class="max-w-[640px] mx-auto h-full-dynamic overflow-y-scroll">
+<main class="max-w-[640px] mx-auto h-full-dynamic overflow-y-scroll relative">
   {#if loading}
     <div class="w-full h-full flex justify-center items-center">
       <Loader size="xl" />
@@ -66,6 +67,7 @@
     {#if $userStore.data}
       {#if $userStore.data.last_played_at}
         <slot />
+        <Navigation />
       {:else}
         <FirstLogin />
       {/if}

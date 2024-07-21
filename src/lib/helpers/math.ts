@@ -17,12 +17,15 @@ export function numberFormat (
   precision = 2,
   // locale: string = 'en-EN'
 ): string {
-  // const intl = Intl.NumberFormat(locale, {
-  //   notation: 'compact',
-  //   maximumFractionDigits: 2,
-  // }).format(value)
   return value.toFixed(precision);
 };
+
+/**
+ * Round number
+ */
+export function round(value: number, precision = 2,): number{
+  return +value.toFixed(precision);
+}
 
 /**
  * Get fibonacci number by index

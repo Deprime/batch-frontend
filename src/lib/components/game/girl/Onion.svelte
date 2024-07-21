@@ -161,16 +161,16 @@
     $$girl.exp_limit = newExpLimit;
 
     // Update box points
-    let step = 3;
-    if (newLevel > 2) {
-      step = 4;
-    }
-    if (newLevel > 5) {
-      step = 5;
-    }
-    if (newLevel >= 9) {
-      step = 6;
-    }
+    let step = 5;
+    // if (newLevel > 2) {
+    //   step = 4;
+    // }
+    // if (newLevel > 5) {
+    //   step = 5;
+    // }
+    // if (newLevel >= 9) {
+    //   step = 6;
+    // }
     const partition = Math.floor(newExpLimit / step);
     const boxPoints = Array(step - 1).fill(0).map((_, i) => {
       return partition * (i + 1);
@@ -191,7 +191,7 @@
     >
       <button
         disabled={locked}
-        on:click={onTap}
+        on:pointerup={onTap}
         bind:this={chanElement}
         class="relative flex justify-center items-center z-[4] size-72"
       >
@@ -200,7 +200,6 @@
         src="/images/onion.png"
         class="h-72 absolute z-[2] transition-all duration-[50ms] {!locked && clicked ? 'translate-y-0.5 scale-[0.90]' : ''} "
       />
-
       <!-- <span class="absolute size-5 z-[2]" id="candy-magnit" /> -->
       <div class="absolute z-[3] size-72" id="girl-{girl.id}-clicker" />
     </div>

@@ -1,16 +1,27 @@
 <script lang="ts">
-	import type { IGirl } from "$lib/types/girl";
+	import type { IGirl, IDrop } from "$lib/types/girl";
+
+  // Helpers
+  import { round } from "$lib/helpers/math";
+
+  // Types
+  interface IBox {
+    drop: IDrop;
+    padding: number;
+    done: boolean
+  }
 
   // Props
   export let girl: IGirl;
 
   // Data
-  let state = 1;
   let width = 0;
-  let boxProgress = [];
+  let boxProgress: IBox[] = [];
 
+  // Reactive
   $: onProgressChange(girl.exp);
 
+  // Methods
   /**
    * Get bar width
    * @param {Number} $$val
@@ -21,28 +32,7 @@
 
     const currentWidth = girl.exp_limit === $$val
       ? 100
-      : Math.floor(($$val*100)/girl.exp_limit);
-
-    if (currentWidth > 80) {
-      state = 5;
-    }
-
-    if (currentWidth < 80 && currentWidth >= 60) {
-      state = 4;
-    }
-
-    if (currentWidth < 60 && currentWidth >= 40) {
-      state = 3;
-    }
-
-    if (currentWidth < 40 && currentWidth >= 20) {
-      state = 2;
-    }
-
-    if (currentWidth < 20) {
-      state = 1;
-    }
-
+      : round(($$val*100)/girl.exp_limit);
     width = currentWidth;
   }
 
@@ -52,52 +42,41 @@
   function onProgressChange($$exp: number) {
     getProgressWidth($$exp);
 
-    boxProgress = girl.box_points.map(exp => {
-      const padding = parseInt((exp * 100) / girl.exp_limit)
-      const done = $$exp >= exp;
-      return { exp, padding, done }
+    boxProgress = girl.box_points.map((drop: IDrop): IBox => {
+      const padding = round((drop.exp * 100) / girl.exp_limit)
+      const done = $$exp >= drop.exp;
+      return { drop, padding, done }
     });
   }
 </script>
 
-<div class="w-full">
+<div class="w-full flex flex-col gap-y-8">
   <div class="flex items-center justify-center">
-    <div
-      class="relative overflow-hidden z-[2] w-9 h-7 flex justify-center items-center rounded-md flex-shrink-0 ring-2 ring-purple-500/30"
-      class:bg-amber-500={state === 5}
-      class:bg-amber-400={state === 4}
-      class:bg-yellow-400={state === 3}
-      class:bg-yellow-300={state === 2}
-      class:bg-yellow-200={state === 1}
-    >
-      <div class="absolute inset-x-0 top-0 w-full h-1/2 z-[1] bg-white/30" />
-      <span class="flex text-base leading-4 font-extrabold text-black">
-        {girl.level}
-      </span>
-    </div>
-    <div class="rounded-r-md bg-gray-300/20 px-4 py-2  text-white font-medium w-full h-4 flex items-center relative">
+    <div class="bg-purple-dark rounded-md font-medium w-full h-4 mr-3 flex items-center relative">
       <div
-        class="rounded-r-md absolute inset-0 z-0 transition-all duration-500 overflow-hidden"
-        class:bg-amber-500={state === 5}
-        class:bg-amber-400={state === 4}
-        class:bg-yellow-400={state === 3}
-        class:bg-yellow-300={state === 2}
-        class:bg-yellow-200={state === 1}
+        class="bg-coral-base rounded-md absolute inset-0.5 z-0 transition-all duration-500 overflow-hidden"
         style="width: {width}%"
-      >
-        <div class="absolute inset-x-0 top-0 w-full h-1/2 z-[1] bg-white/30" />
-      </div>
+      />
 
       {#each boxProgress as box}
         <div
-          class="absolute top-[-4px] z-[3] ml-[-10px] transition-all duration-700 {box.done ? "opacity-0 scale-[3]" : ""}"
+          class="absolute z-[3] -top-3 -ml-5 transition-all duration-700"
           style="left: {box.padding}%"
         >
           <span
-            class="flex justify-center items-center rounded-full size-6 bg-amber-400 text-sm text-black/85 font-extrabold"
-            id="girl-{girl.id}-box-progress-{box.exp}"
+            class="
+              flex justify-center items-center rounded-full size-10
+              ring-2 ring-[var(--purple-base)]
+              transition-all duration-700
+              {box.done ? "bg-coral-base" : "bg-purple-dark"}
+            "
+            id="girl-{girl.id}-box-progress-{box.drop.exp}"
           >
-            ?
+            <img
+              src={`/images/gifts/icon-${box.drop.reward}.png`}
+              alt={box.drop.reward}
+              class="size-8"
+            />
           </span>
         </div>
       {/each}
@@ -110,5 +89,4 @@
       Осталось до участия в турнире
     </p>
   </div>
-
 </div>

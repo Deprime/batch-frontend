@@ -12,7 +12,7 @@ export function getRandomInt(min: number, max: number): number {
 /**
  * Number format helper
  */
-export function numberFormat (
+export function simpleNumberFormat (
   value: number,
   precision = 2,
   // locale: string = 'en-EN'
@@ -21,9 +21,32 @@ export function numberFormat (
 };
 
 /**
+ * Currency format helper
+ * Uses standart Intl NumberFromat
+ * Details: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
+ */
+export const numberFormat = (
+  value: number,
+  minimumFractionDigits = 0,
+  currency = 'USD',
+): string => {
+  const options = {
+    style: 'currency',
+    currency,
+    currencyDisplay: 'code',
+    minimumFractionDigits: value > 0 ? minimumFractionDigits : 0
+  };
+
+  value = parseFloat(value.toFixed(minimumFractionDigits));
+  let result = new Intl.NumberFormat('en-US', options).format(value);
+  result = result.replace(currency, '').trim().replaceAll(',', ' ');
+  return result;
+};
+
+/**
  * Round number
  */
-export function round(value: number, precision = 2,): number{
+export function round(value: number, precision = 2): number{
   return +value.toFixed(precision);
 }
 

@@ -78,18 +78,19 @@ export default class Animate {
 
       icon.style.top = `${y-30}px`;
       icon.style.left = `${x-10}px`;
-      icon.style.scale = `0.5`;
-      icon.style.opacity = '0.5';
+      icon.style.scale = `1`;
+      icon.style.opacity = '0.2';
       btn.appendChild(icon);
 
-      const deltaY = 85;
+      const deltaY = 130;
+      const deltaX = 1 + this.random(-15, 50);
 
       window.requestAnimationFrame(() => {
         icon.style.opacity = '1';
         icon.style.scale = `1.5`;
 
         setTimeout(() => {
-          icon.style.left = `${x -15}px`;
+          icon.style.left = `${x - deltaX}px`;
           icon.style.top = `${y - deltaY}px`;
           setTimeout(() => {
             icon.style.opacity = '0';

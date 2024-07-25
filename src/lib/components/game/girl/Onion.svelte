@@ -1,7 +1,5 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { tweened } from 'svelte/motion';
-  import { quartOut } from 'svelte/easing';
 
   import confetti from 'canvas-confetti';
   import type { Shape } from 'canvas-confetti';
@@ -41,14 +39,6 @@
     scalar: 0.6,
     shapes: <Shape[]> ["square"],
   };
-  const tweenConfig = {
-    duration: 500,
-    easing: quartOut,
-  }
-  let tokenTweened = tweened(girl.token_balance ?? 0, tweenConfig);
-
-  // Reactive
-  $: $tokenTweened = girl.token_balance ?? 1;
 
   // Methods
   const showConfetti = async () => {
@@ -72,17 +62,6 @@
     }
   }
 
-  /**
-   * Candy feed animation
-   * @param count
-   */
-  const candyAnimation = (count = 1) => {
-    const startEl = document.getElementById(`candy-magnit`);
-    const targetEl = document.getElementById(`candy-magnit`);
-    if (targetEl && startEl) {
-      animate.candyFeed(startEl, targetEl, count)
-    }
-  }
 
   /**
    * On girl click
@@ -102,20 +81,22 @@
         // const price = feed_price + (level - 1);
         const price = level;
 
-        if ($userStore.data) {
-        // if ($userStore.data && $userStore.data?.candy >= price) {
+        if ($userStore.data && $userStore.data?.energy > 0) {
           clicked = true;
           // $userStore.data.candy -= price;
-          $userStore.data.token += token_per_feed;
-          $girlsStore.data[index].token_balance += token_per_feed;
+          const newFeedPerClick = token_per_feed+25;
+          $userStore.data.token += newFeedPerClick;
+          $girlsStore.data[index].token_balance += newFeedPerClick;
 
           const x = event.layerX;
           const y = event.layerY;
-          animate.tokenFly(x, y, girl.id, token_per_feed)
+          animate.tokenFly(x, y, girl.id, newFeedPerClick);
+
+          $userStore.data.energy -= 1;
           // candyAnimation(price);
 
           if (exp < exp_limit) {
-            $girlsStore.data[index].exp += 1;
+            $girlsStore.data[index].exp += newFeedPerClick;
           }
           else {
             onLevelUp(exp_limit);

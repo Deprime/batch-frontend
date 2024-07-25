@@ -13,7 +13,7 @@ export interface IUser {
 
 export interface IDrop {
   exp: number,
-  reward: "boost" | "money" | "gift",
+  reward: "boost" | "money" | "gift" | "ton",
 }
 
 export type IGirl = {

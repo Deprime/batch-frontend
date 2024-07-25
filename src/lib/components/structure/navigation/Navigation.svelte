@@ -24,28 +24,36 @@
       return {
         ...el,
         badge: el.badge,
-        active: path.includes(el.url),
+        active: path === el.url ,
+        // active: path.includes(el.url) ,
       }
-    })
+    });
   }
-
 </script>
 
-<nav class="fixed z-10 bottom-0 inset-x-0 flex justify-between gap-2 px-3 pb-3">
-  {#each navList as nav}
-    <a
-      href={nav.url}
-      id={nav.id}
-      class="gap-2 flex flex-col items-center rounded-2xl py-2 w-[72px]"
-      class:bg-purple-dark={!nav.active}
-      class:bg-purple-darkest={nav.active}
-    >
-      <figure>
-        <img src="/images/nav/{nav.icon}" alt={nav.id}>
-      </figure>
-      <span class="text-[10px] leading-3 font-normal">
-        {nav.title}
-      </span>
-    </a>
-  {/each}
-</nav>
+<div class="nav-wrapper fixed z-10 bottom-0 inset-x-0 bg-purple-base rounded-t-xl">
+  <nav class="flex justify-between gap-2 px-3 pb-3 pt-2">
+    {#each navList as nav}
+      <a
+        href={nav.url}
+        id={nav.id}
+        class="gap-2 flex flex-col items-center rounded-2xl py-2 w-[72px] transition-colors"
+        class:bg-purple-dark={!nav.active}
+        class:bg-purple-darkest={nav.active}
+      >
+        <figure>
+          <img src="/images/nav/{nav.icon}" alt={nav.id}>
+        </figure>
+        <span class="text-[10px] leading-3 font-normal">
+          {nav.title}
+        </span>
+      </a>
+    {/each}
+  </nav>
+</div>
+
+<style scoped lang="scss">
+  .nav-wrapper {
+    box-shadow: 0 0 15px 5px var(--purple-base), 0 0 30px 10px var(--purple-base);
+  }
+</style>

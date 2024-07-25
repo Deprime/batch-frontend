@@ -7,6 +7,10 @@
 }
 
 // Purple
+.bg-purple-base {
+  @apply bg-[var(--purple-base)];
+}
+
 .bg-purple-dark {
   @apply bg-[var(--purple-dark)];
 }

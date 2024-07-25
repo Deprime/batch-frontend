@@ -9,9 +9,9 @@
 }
 
 .chan-token {
-  text-shadow: 0 2px 4px #03102598, 0 0px 3px #03102573;
+  text-shadow: 0 1px 3px #03102598, 0 0px 3px #03102573;
   @apply not-italic;
-  @apply text-white font-extrabold text-sm;
+  @apply text-white font-extrabold text-lg;
   pointer-events: none;
 }
 
@@ -25,7 +25,7 @@
   transition: opacity 0.3s ease,
     scale 0.3s ease,
     left 0.3s ease,
-    top 0.3s ease;
+    top 0.4s ease;
 }
 
 .canvas-candy {

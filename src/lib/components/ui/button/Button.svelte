@@ -61,7 +61,7 @@
 <style lang="scss">
   .bt-button {
     @apply relative;
-    @apply px-4 py-2.5;
+    @apply px-4 py-2;
     @apply flex items-center justify-center w-fit;
     @apply rounded-xl transition-all active:translate-y-1;
     @apply font-bold subpixel-antialiased;
@@ -79,8 +79,9 @@
       }
 
       &-primary {
-        @apply text-black;
-        background-color: var(--green-base);
+        @apply text-white;
+        // @apply text-black;
+        background-color: var(--purple-darkest);
       }
 
       &-yellow {

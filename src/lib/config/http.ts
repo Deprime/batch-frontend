@@ -57,42 +57,42 @@ const $http = ky.create({
       },
     ],
 
-    beforeRetry: [
-			async ({
-        request,
-        // options,
-        // error,
-        // retryCount
-      }) => {
-        console.log('Token refresh try');
-        try {
-          const user = get(userStore);
-          const app = get(appStore);
+    // beforeRetry: [
+		// 	async ({
+    //     request,
+    //     // options,
+    //     // error,
+    //     // retryCount
+    //   }) => {
+    //     console.log('Token refresh try');
+    //     try {
+    //       const user = get(userStore);
+    //       const app = get(appStore);
 
-          const urlTelegram = `${API_HOST}/auth/telegram`;
-          const urlDebug = `${API_HOST}/auth/username`;
-          const url = !IS_DEV_MODE && app.engine === 'telegram'
-            ? urlTelegram
-            : urlDebug;
+    //       const urlTelegram = `${API_HOST}/auth/telegram`;
+    //       const urlDebug = `${API_HOST}/auth/username`;
+    //       const url = !IS_DEV_MODE && app.engine === 'telegram'
+    //         ? urlTelegram
+    //         : urlDebug;
 
-          const init_data = window.Telegram.WebApp.initData;
-          const username = user?.data?.username ?? '';
+    //       const init_data = window.Telegram.WebApp.initData;
+    //       const username = user?.data?.username ?? '';
 
-          const data = !IS_DEV_MODE && app.engine === 'telegram'
-            ? { init_data }
-            : { username };
+    //       const data = !IS_DEV_MODE && app.engine === 'telegram'
+    //         ? { init_data }
+    //         : { username };
 
-          const response = await ky.post(url, {json: {data}});
-          const result   = await response.json();
-          userStore.setToken(result.token);
-          request.headers.set('Authorization', token);
-        }
-        catch (_err) {
-          console.log(_err)
-          throw new Error('Token refresh fails');
-        }
-			}
-		]
+    //       const response = await ky.post(url, {json: {data}});
+    //       const result   = await response.json();
+    //       userStore.setToken(result.token);
+    //       request.headers.set('Authorization', token);
+    //     }
+    //     catch (_err) {
+    //       console.log(_err)
+    //       throw new Error('Token refresh fails');
+    //     }
+		// 	}
+		// ]
   },
 });
 

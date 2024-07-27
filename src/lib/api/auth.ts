@@ -1,7 +1,7 @@
 import $http from '$lib/config/http';
 // import type { IApiResponse } from '$lib/types/common';
 
-const PREFIX = '/api/v1/auth';
+const PREFIX = 'api/v1/auth';
 
 const authApi = {
   /**

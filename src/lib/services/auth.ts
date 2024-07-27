@@ -18,9 +18,9 @@ const authService = {
     try {
       const init_data = telegram.WebApp.initData;
       const result = await authApi.telegram(init_data);
-      if (result && result.result === true) {
-        userStore.setData(result.response.user);
-        userStore.setToken(result.response.token);
+      if (result) {
+        userStore.setData(result.user);
+        userStore.setToken(result.token);
       }
     } catch (_err) {
       userStore.clear();
